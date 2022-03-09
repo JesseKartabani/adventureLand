@@ -44,6 +44,8 @@ warrior_skills();
 priest_skills();
 hunter_skills();
 
+visit_servers();
+
 // mage skills
 //setInterval(function(){
 //    mage_skills();
@@ -602,5 +604,48 @@ function hunter_skills() {
                 if (can_use("3shot")) use_skill("3shot", target);
             }, 2000);
         }
+    }
+}
+
+function visit_servers() {
+    var hour = 3600000;
+    var minute = 60000;
+    // Stays on main server for one hour before cycling through all servers
+
+    // Main server EU I
+    if(server.region == "EU" && server.id == "I") {
+        setTimeout(function () {
+            change_server("EU", "II")
+        }, hour);     
+    }
+
+    if(server.region == "EU" && server.id == "II") {
+        setTimeout(function () {
+            change_server("US", "I")
+        }, minute);
+    }
+
+    if(server.region == "US" && server.id == "I") {
+        setTimeout(function () {
+            change_server("US", "II")
+        }, minute);
+    }
+
+    if(server.region == "US" && server.id == "II") {
+        setTimeout(function () {
+            change_server("US", "III")
+        }, minute);
+    }
+
+    if(server.region == "US" && server.id == "III") {
+        setTimeout(function () {
+            change_server("US", "II")
+        }, minute);
+    }
+
+    if(server.region == "ASIA" && server.id == "I") {
+        setTimeout(function () {
+            change_server("EU", "I")
+        }, minute);
     }
 }
