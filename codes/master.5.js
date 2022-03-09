@@ -409,7 +409,7 @@ function retain_gold_amount() {
 // this one will ask the merchant to bring potions based on three things...
 function request_merchant() {
     // 1) how many health pots we have. 2) how mana mana pots we have. 3) how much inventory space we have
-    if (quantity(potion_types[0]) < 5 || quantity(potion_types[1]) < 5 || character.esize < 5) {
+    if (quantity(potion_types[0]) < 15 || quantity(potion_types[1]) < 15 || character.esize < 5) {
         // if any of those conditions are met, then we need a visit from the merchant
         // we need to give the merchant some information when we ping them.
         var data = {
