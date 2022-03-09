@@ -639,7 +639,7 @@ function visit_servers() {
 
     if(server.region == "US" && server.id == "III") {
         setTimeout(function () {
-            change_server("US", "II")
+            change_server("ASIA", "I")
         }, minute);
     }
 
