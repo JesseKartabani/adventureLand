@@ -14,6 +14,7 @@ function buyFromPonty(itemName, itemLevel) {
 
 // Only change this
 items_wanted = [
+	"gslime",
 	"crabclaw",
 	"beewings",
 	"wattire",
