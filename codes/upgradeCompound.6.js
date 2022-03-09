@@ -83,7 +83,7 @@ setInterval(function() {
 		compound_items();
 	}
 
-}, 200);
+}, 1000);
 
 function upgrade() {
 	for (let i = 0; i < character.items.length; i++) 
