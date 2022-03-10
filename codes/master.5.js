@@ -439,10 +439,10 @@ function on_cm(sender, data) {
         if (!smart.moving) {
             smart_move(potion_seller_location, function () {
                 // once we arrive at the potion seller
-                if (quantity(potion_types[0]) < 8000) {
+                if (quantity(potion_types[0]) < 4000) {
                     buy_with_gold(potion_types[0], data.hpot); // buy health pots for the farmer
                 }
-                if (quantity(potion_types[1]) < 8000) {
+                if (quantity(potion_types[1]) < 4000) {
                     buy_with_gold(potion_types[1], data.mpot); // buy mana pots for the farmer
                 }
                 // move to the farmer
