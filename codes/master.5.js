@@ -608,11 +608,11 @@ function hunter_skills() {
         if (character.mp >= 300) {
             var target = get_targeted_monster;
             setInterval(function () {
-                // Casts 3shot every 2 seconds if can use
+                // Casts 3shot every 1 seconds if can use
                 if (can_use("3shot")) {
                     use_skill("3shot", target);
                 }
-            }, 2000);
+            }, 1000);
         }
     }
 }
