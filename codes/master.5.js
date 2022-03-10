@@ -44,7 +44,13 @@ warrior_skills();
 priest_skills();
 hunter_skills();
 
+// Each hour we will check every server for ponty items
 visit_servers();
+
+// Checks for and fixes frozen or stuck characters each minute
+setInterval(function () {
+    fix_frozen_char();
+}, 60000);
 
 // mage skills
 //setInterval(function(){
@@ -596,6 +602,7 @@ function warrior_skills() {
 
 // Hunter spells
 function hunter_skills() {
+    // If class is ranger and mana is over 300
     if (character.ctype == "ranger") {
         if (character.mp >= 300) {
             var target = get_targeted_monster();
@@ -649,5 +656,19 @@ function visit_servers() {
         setTimeout(function () {
             change_server("EU", "I")
         }, minute);
+    }
+}
+
+function fix_frozen_char() {
+    // Runs on all characters except merchant
+    if(character.ctype != "merchant") {
+        var current_date = new Date();
+        var last_stopped = character.last_stop;
+        var minute = 60000;
+        // If character has been stopped for more than a minute...
+        if(current_date - last_stopped > minute) {
+            // Go back to farming
+            handle_farming
+        }
     }
 }
