@@ -646,7 +646,7 @@ function server_logic(server, new_region, server_number) {
     // Server we are on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // If we are on our main server "EU I" We change servers after an hour
-    // Too change main server replace "EU I" with your choice of server
+    // To change main server replace "EU I" with your choice of server
     if (current_server == "EU I") {
         if (server == current_server) {
             setTimeout(function () {
