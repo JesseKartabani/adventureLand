@@ -188,10 +188,10 @@ function use_potions() {
 function buy_upgrade_scrolls() {
     // Makes merchant always keep 50 of each type of upgrade scroll
     if (character.name == merchant_name && !smart.moving) {
-        keep_certain_amount("scroll0", 50)
-        keep_certain_amount("scroll1", 50)
-        keep_certain_amount("cscroll0", 50)
-        keep_certain_amount("cscroll1", 50)
+        keep_certain_amount("scroll0", 50);
+        keep_certain_amount("scroll1", 50);
+        keep_certain_amount("cscroll0", 50);
+        keep_certain_amount("cscroll1", 50);
     }
 }
 
@@ -626,12 +626,12 @@ function visit_servers() {
         Stays on "EU I" for a hour then swaps to "EU II".
         Goes through each server for one minute until returning to "EU I" 
     */
-    server_logic("EU I", "EU", "II")
-    server_logic("EU II", "US", "I")
-    server_logic("US I", "US", "II")
-    server_logic("US II", "US", "III")
-    server_logic("US III", "ASIA", "I")
-    server_logic("ASIA I", "EU", "I")
+    server_logic("EU I", "EU", "II");
+    server_logic("EU II", "US", "I");
+    server_logic("US I", "US", "II");
+    server_logic("US II", "US", "III");
+    server_logic("US III", "ASIA", "I");
+    server_logic("ASIA I", "EU", "I");
 }
 
 // str, str, str
