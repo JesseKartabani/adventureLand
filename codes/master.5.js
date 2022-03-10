@@ -184,7 +184,7 @@ function use_potions() {
 }
 
 function buy_upgrade_scrolls() {
-    // Makes merchant keep buying each type of scroll until we have 50 of each
+    // Makes merchant always keep 50 of each type of upgrade scroll
     if (character.name == merchant_name && !smart.moving) {
         keep_certain_amount("scroll0", 50)
         keep_certain_amount("scroll1", 50)
