@@ -627,8 +627,8 @@ function visit_servers() {
         Goes through each server for one minute until returning to "EU I" 
     */
     server_logic("EU I", "EU", "II")
-    server_logic("EU II", "US", "I") 
-    server_logic("US I", "US", "II") 
+    server_logic("EU II", "US", "I")
+    server_logic("US I", "US", "II")
     server_logic("US II", "US", "III")
     server_logic("US III", "ASIA", "I")
     server_logic("ASIA I", "EU", "I")
@@ -643,8 +643,8 @@ function server_logic(server, new_region, server_number) {
     // Server we are on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // If we are on our main server "EU I" We change servers after an hour
-    if(current_server == "EU I") {
-        if(server == current_server) {
+    if (current_server == "EU I") {
+        if (server == current_server) {
             setTimeout(function () {
                 change_server(new_region, server_number)
             }, hour)
@@ -652,7 +652,7 @@ function server_logic(server, new_region, server_number) {
     }
     // If we are not on main server change server each minute
     else {
-        if(server == current_server) {
+        if (server == current_server) {
             setTimeout(function () {
                 change_server(new_region, server_number)
             }, minute)
