@@ -41,18 +41,11 @@ setInterval(function () {
 
 // Activates each classes skills according to functions logic
 warrior_skills();
-priest_skills();
+priest_skills(); // Refer to functions for details
 hunter_skills();
 
 // Each hour we will check every server for ponty items
 visit_servers();
-
-// mage skills
-/*
-setInterval(function(){
-    mage_skills();
-}, 250);
-*/
 
 // Any character regardless of class runs this code
 function master_global() {
@@ -574,7 +567,7 @@ function exchange_items() {
 
 // Uses priest spells
 function priest_skills() {
-    if (character.name == "JesseHeals") {
+    if (character.ctype == "priest") {
         var target = get_targeted_monster();
         setInterval(function () {
             use_skill("partyheal");
@@ -585,7 +578,7 @@ function priest_skills() {
 
 // Uses warrior spells
 function warrior_skills() {
-    if (character.name == "JesseTanks") {
+    if (character.ctype == "warrior") {
         var target = get_targeted_monster();
         setInterval(function () {
             use_skill("taunt", target); // Taunt every 3 seconds
