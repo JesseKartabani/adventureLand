@@ -619,11 +619,14 @@ function hunter_skills() {
     }
 }
 
+// Stays on main server for one hour before cycling through all servers
 function visit_servers() {
+    // One hour in milliseconds
     var hour = 3600000;
+    // One minute in milliseconds
     var minute = 60000;
+    // Server we are currently on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
-    // Stays on main server for one hour before cycling through all servers
 
     // Main server EU I
     if(current_server == "EU I") {
