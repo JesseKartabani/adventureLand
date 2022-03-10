@@ -621,47 +621,41 @@ function hunter_skills() {
 
 // Stays on main server for one hour before cycling through all servers
 function visit_servers() {
+    /*
+        Main server EU I
+        Stays on "EU I" for a hour then swaps to "EU II".
+        Goes through each server for one minute until returning to "EU I" 
+    */
+    server_logic("EU I", "EU", "II")
+    server_logic("EU II", "US", "I") 
+    server_logic("US I", "US", "II") 
+    server_logic("US II", "US", "III")
+    server_logic("US III", "ASIA", "I")
+    server_logic("ASIA I", "EU", "I")
+}
+
+// str, str, str
+function server_logic(server, new_region, server_number) {
     // One hour in milliseconds
     var hour = 3600000;
     // One minute in milliseconds
     var minute = 60000;
-    // Server we are currently on
+    // Server we are on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
-
-    // Main server EU I
+    // If we are on our main server "EU I" We change servers after an hour
     if(current_server == "EU I") {
-        setTimeout(function () {
-            change_server("EU", "II")
-        }, hour);     
+        if(server == current_server) {
+            setTimeout(function () {
+                change_server(new_region, server_number)
+            }, hour)
+        }
     }
-
-    if(current_server == "EU II") {
-        setTimeout(function () {
-            change_server("US", "I")
-        }, minute);
-    }
-
-    if(current_server == "US I") {
-        setTimeout(function () {
-            change_server("US", "II")
-        }, minute);
-    }
-
-    if(current_server == "US II") {
-        setTimeout(function () {
-            change_server("US", "III")
-        }, minute);
-    }
-
-    if(current_server == "US III") {
-        setTimeout(function () {
-            change_server("ASIA", "I")
-        }, minute);
-    }
-
-    if(current_server == "ASIA I") {
-        setTimeout(function () {
-            change_server("EU", "I")
-        }, minute);
+    // If we are not on main server change server each minute
+    else {
+        if(server == current_server) {
+            setTimeout(function () {
+                change_server(new_region, server_number)
+            }, minute)
+        }
     }
 }
