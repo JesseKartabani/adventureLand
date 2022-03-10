@@ -200,6 +200,17 @@ function buy_upgrade_scrolls() {
         }
     }
 }
+
+// str, int
+function keep_certain_amount(item, amount) {
+    // If the quantity of our item is less than the amount we want...
+    if (quantity(item) <= amount) {
+        // Buy item
+        parent.buy_with_gold(item);
+    }
+}
+
+
 // we need the merchant to have their stand opened in order to best sell items and also farm xp
 function open_close_stand() {
     if (character.moving) {
