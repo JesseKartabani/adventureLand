@@ -47,11 +47,6 @@ hunter_skills();
 // Each hour we will check every server for ponty items
 visit_servers();
 
-// Checks for and fixes frozen or stuck characters each minute
-setInterval(function () {
-    fix_frozen_char();
-}, 60000);
-
 // mage skills
 //setInterval(function(){
 //    mage_skills();
@@ -280,8 +275,10 @@ function farm_normally() {
     if (character.s.monsterhunt == undefined) {
         return; // stop running the function
     } else {
-        // if we do have a quest but the monster to kill is not in our whitelist
-        if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) {
+        // if we do have a quest and the monster to kill is in our whitelist and we are in the right server
+        var server = character.s.monsterhunt.sn; // example: "US III"
+        var current_server = parent.server_region + ' ' + parent.server_identifier;
+        if (monster_hunt_whitelist.includes(character.s.monsterhunt.id) && current_server == server) {
             return; // stop running the function
         }
     }
@@ -656,19 +653,5 @@ function visit_servers() {
         setTimeout(function () {
             change_server("EU", "I")
         }, minute);
-    }
-}
-
-function fix_frozen_char() {
-    // Runs on all characters except merchant
-    if(character.ctype != "merchant") {
-        var current_date = new Date();
-        var last_stopped = character.last_stop;
-        var minute = 60000;
-        // If character has been stopped for more than a minute...
-        if(current_date - last_stopped > minute) {
-            // Go back to farming
-            handle_farming
-        }
     }
 }
