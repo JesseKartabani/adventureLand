@@ -108,14 +108,15 @@ function upgrade() {
 					parent.buy(scrollname);
 				return;
 			  }
-
-			  parent.socket.emit('upgrade', {
-				item_num: i,
-				scroll_num: scroll_slot,
-				offering_num: null,
-				clevel: c.level
-			  });
-			  return;
+			  if (character.q.upgrade == undefined) {
+				parent.socket.emit('upgrade', {
+					item_num: i,
+					scroll_num: scroll_slot,
+					offering_num: null,
+					clevel: c.level
+				  });
+				  return;
+			  }
 			}
     	}
   	}
