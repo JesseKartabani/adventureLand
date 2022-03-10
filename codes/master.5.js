@@ -19,7 +19,7 @@ const farm_monster = ['bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
 const merchant_idle = [true, { map: 'main', x: -74, y: -140 }];
-const potion_types = ['hpot0', 'mpot0', 200]; // Value is stack amount desired
+const potion_types = ['hpot0', 'mpot0', 400]; // Value is stack amount desired
 const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg'];
 const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4'];
 const merchant_name = party_names[0];
@@ -51,8 +51,8 @@ setInterval(function () {
 
 
 // Activates each classes skills according to functions logic
-warrior_skills();
-priest_skills(); // Refer to functions for details
+//warrior_skills();
+//priest_skills(); // Refer to functions for details
 hunter_skills();
 
 // Each hour we will check every server for ponty items
