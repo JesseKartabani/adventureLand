@@ -2,7 +2,12 @@
     TODO:
     * Farmers need to decide what monsters are best to farm
     * Want farmers to help each other when killing harder monsters
-    * SERVER SWAPPING
+    * Optimal bee farming for rangers
+    * Phoneix farming
+    * Ranger kiting for hard mobs
+    * Merchant mining/fishing
+    * Auto equip best gear in bank for farmers button
+    * Lower code cost of upgradeCompound
 */
 
 // This is for zooming game in
