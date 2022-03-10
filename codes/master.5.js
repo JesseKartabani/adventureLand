@@ -580,9 +580,9 @@ function priest_skills() {
     if (character.ctype == "priest") {
         var target = get_targeted_monster();
         setInterval(function () {
-            use_skill("partyheal");
-            use_skill("curse", target);
-        }, 5000);
+            use_skill("partyheal"); // Heals party
+            use_skill("curse", target); // Debuffs enemy 
+        }, 5000); // every 5 seconds
     }
 }
 
@@ -591,11 +591,11 @@ function warrior_skills() {
     if (character.ctype == "warrior") {
         var target = get_targeted_monster();
         setInterval(function () {
-            use_skill("taunt", target); // Taunt every 3 seconds
-        }, 3000);
+            use_skill("taunt", target); // Taunts target
+        }, 3000); // Every 3 seconds
         setInterval(function () {
-            use_skill("charge"); // Charge every 40 seconds
-        }, 40000);
+            use_skill("charge"); // Charge too target
+        }, 40000); // Every 40 seconds
         /*
         setInterval(function(){
             if(character.hp <= character.max_hp / 2){
