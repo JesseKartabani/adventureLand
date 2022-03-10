@@ -145,13 +145,16 @@ function compound_items() {
 		game_log(c[i]);
 		game_log(c[i+1]);
 		game_log(c[i+2]);
-      parent.socket.emit('compound', {
-        items: [c[i], c[i + 1], c[i + 2]],
-        scroll_num: scroll,
-        offering_num: null,
-        clevel: c[0]
-      });
-	  return;
+		if (character.q.compound == undefined) {
+			parent.socket.emit('compound', {
+				items: [c[i], c[i + 1], c[i + 2]],
+				scroll_num: scroll,
+				offering_num: null,
+				clevel: c[0]
+			  });
+			  return;
+		}
+      
     }
   }
 }
