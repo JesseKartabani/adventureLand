@@ -616,40 +616,41 @@ function hunter_skills() {
 function visit_servers() {
     var hour = 3600000;
     var minute = 60000;
+    var current_server = parent.server_region + ' ' + parent.server_identifier;
     // Stays on main server for one hour before cycling through all servers
 
     // Main server EU I
-    if(server.region == "EU" && server.id == "I") {
+    if(current_server == "EU I") {
         setTimeout(function () {
             change_server("EU", "II")
         }, hour);     
     }
 
-    if(server.region == "EU" && server.id == "II") {
+    if(current_server == "EU II") {
         setTimeout(function () {
             change_server("US", "I")
         }, minute);
     }
 
-    if(server.region == "US" && server.id == "I") {
+    if(current_server == "US I") {
         setTimeout(function () {
             change_server("US", "II")
         }, minute);
     }
 
-    if(server.region == "US" && server.id == "II") {
+    if(current_server == "US II") {
         setTimeout(function () {
             change_server("US", "III")
         }, minute);
     }
 
-    if(server.region == "US" && server.id == "III") {
+    if(current_server == "US III") {
         setTimeout(function () {
             change_server("ASIA", "I")
         }, minute);
     }
 
-    if(server.region == "ASIA" && server.id == "I") {
+    if(current_server == "ASIA I") {
         setTimeout(function () {
             change_server("EU", "I")
         }, minute);
