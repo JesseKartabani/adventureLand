@@ -601,13 +601,11 @@ function hunter_skills() {
     // If class is ranger and mana is over 300
     if (character.ctype == "ranger") {
         if (character.mp >= 300) {
-            var target = get_targeted_monster();
+            var target = get_targeted_monster;
             setInterval(function () {
                 // Casts 3shot every 2 seconds if can use
                 if (can_use("3shot")) {
-                    if (is_in_range(target, "3shot")) {
-                        use_skill("3shot", target);
-                    }
+                    use_skill("3shot", target);
                 }
             }, 2000);
         }
