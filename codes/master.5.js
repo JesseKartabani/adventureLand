@@ -184,20 +184,12 @@ function use_potions() {
 }
 
 function buy_upgrade_scrolls() {
-    // Makes merchant buy each type of scroll until we have 50 of each
+    // Makes merchant keep buying each type of scroll until we have 50 of each
     if (character.name == merchant_name && !smart.moving) {
-        if (quantity("scroll0") <= 50) {
-            parent.buy_with_gold("scroll0");
-        }
-        if (quantity("scroll1") <= 50) {
-            parent.buy_with_gold("scroll1");
-        }
-        if (quantity("cscroll0") <= 50) {
-            parent.buy_with_gold("cscroll0");
-        }
-        if (quantity("cscroll1") <= 50) {
-            parent.buy_with_gold("cscroll1");
-        }
+        keep_certain_amount("scroll0", 50)
+        keep_certain_amount("scroll1", 50)
+        keep_certain_amount("cscroll0", 50)
+        keep_certain_amount("cscroll1", 50)
     }
 }
 
@@ -209,7 +201,6 @@ function keep_certain_amount(item, amount) {
         parent.buy_with_gold(item);
     }
 }
-
 
 // we need the merchant to have their stand opened in order to best sell items and also farm xp
 function open_close_stand() {
