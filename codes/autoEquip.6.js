@@ -3,8 +3,10 @@
 // character.bank.items1[]
 const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
 
-add_bottom_button("autoEquip", "🛡", auto_equip);
+// no more button instead do it on 50 min interval 
 
 function auto_equip() {
-    smart_move(bank_loaction[1]);
+    if (character.ctype != "merchant"){
+        smart_move(bank_loaction[1]);
+    }
 }
