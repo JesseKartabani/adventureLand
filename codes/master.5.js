@@ -285,10 +285,9 @@ function farm_normally() {
     if (character.s.monsterhunt == undefined) {
         return; // Stop running the function
     } else {
-        // If we do have a quest and the monster to kill is in our whitelist and we are in the right server
+        // If we do have a quest and the monster to kill is not in our whitelist
         var server = character.s.monsterhunt.sn; // Example: "US III"
-        var current_server = parent.server_region + ' ' + parent.server_identifier;
-        if (monster_hunt_whitelist.includes(character.s.monsterhunt.id) && current_server == server) {
+        if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) {
             return; // Stop running the function
         }
     }
