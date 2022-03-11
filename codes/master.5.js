@@ -12,20 +12,20 @@
 
 // This is for zooming game in
 const { webFrame } = require('electron');
-webFrame.setZoomFactor(1.25);
+webFrame.setZoomFactor(1.25); // 1.25x
 
 // Global variables only change farm_monster and mh whitelist
 const farm_monster = ['bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
-const merchant_idle = [true, { map: 'main', x: -74, y: -140 }];
+const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
 const potion_types = ['hpot0', 'mpot0', 400]; // Value is stack amount desired
-const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg'];
-const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4'];
+const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
+const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const merchant_name = party_names[0];
-const farmer_names = [party_names[1], party_names[2], party_names[3]];
-const keep_whitelist = [potion_types[0], potion_types[1], 'tracker'];
-const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // can refactor to include strings & farm_monster array
+const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyone except our merchant
+const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
+const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
 
 load_code("upgradeCompound"); // Compounding/upgrading
 load_code("ponty"); // Buys from Ponty
@@ -44,7 +44,7 @@ setInterval(function () {
     master_farmers(); // any farmer uses code
 }, 250);
 
-// Need loot on the fastest interval too keep up with chest drops
+// Looting on the fastest interval too keep up with chest drops
 setInterval(function () {
     loot();
 }, 150);
