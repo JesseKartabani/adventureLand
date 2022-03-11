@@ -15,7 +15,7 @@ const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25);
 
 // Global variables only change farm_monster and mh whitelist
-const farm_monster = ['armadilo']; // Can refactor to handle multiple monsters
+const farm_monster = ['bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
 const merchant_idle = [true, { map: 'main', x: -74, y: -140 }];
@@ -614,9 +614,7 @@ function hunter_skills() {
             var target = get_targeted_monster;
             setInterval(function () {
                 // Casts 3shot every 1 seconds if can use
-                if (can_use("3shot")) {
-                    use_skill("3shot", target);
-                }
+                use_skill("3shot", target);
             }, 1000);
         }
     }
