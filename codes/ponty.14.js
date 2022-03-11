@@ -35,6 +35,7 @@ items_wanted = [
 	"dexbelt"
 ]
 
+// Tries to buy from ponty every 20 seconds
 setInterval(function(){
 	buyFromPonty(items_wanted, 0);	
 }, 20000);
