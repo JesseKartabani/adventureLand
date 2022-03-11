@@ -14,7 +14,8 @@
 const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25); // 1.25x
 
-// Global variables only change farm_monster and mh whitelist
+// Global variables
+const main_server = "EU I"; // If you change this you must also change visit_servers function
 const farm_monster = ['bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
@@ -315,7 +316,7 @@ function handle_monster_hunts() {
     var npc_location = { x: npc.x, y: npc.y, map: npc.map };
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // Checks to see if we have a monster hunting quest and if we are on our main server
-    if (character.s.monsterhunt == undefined && current_server == "EU I") { // If we do not have a quest and we are on main server
+    if (character.s.monsterhunt == undefined && current_server == main_server) { // If we do not have a quest and we are on main server
         // Go get a quest from daisy
         if (!smart.moving) {
             smart_move(npc_location, function () {
@@ -626,10 +627,10 @@ function hunter_skills() {
 function visit_servers() {
     /*
         Main server EU I
-        Stays on "EU I" for a hour then swaps to "EU II".
-        Goes through each server for one minute until returning to "EU I" 
+        Stays on main_server for a hour then swaps to "EU II".
+        Goes through each server for one minute until returning to main_server 
     */
-    server_logic("EU I", "EU", "II");
+    server_logic(main_server, "EU", "II");
     server_logic("EU II", "US", "I");
     server_logic("US I", "US", "II");
     server_logic("US II", "US", "III");
@@ -645,9 +646,9 @@ function server_logic(server, new_region, server_number) {
     var minute = 60000;
     // Server we are on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
-    // If we are on our main server "EU I" We change servers after an hour
-    // To change main server replace "EU I" with your choice of server
-    if (current_server == "EU I") {
+    // If we are on our main server main_server We change servers after an hour
+    // To change main server replace main_server with your choice of server
+    if (current_server == main_server) {
         if (server == current_server) {
             setTimeout(function () {
                 change_server(new_region, server_number)
