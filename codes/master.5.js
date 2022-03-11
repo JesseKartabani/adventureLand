@@ -127,6 +127,7 @@ function get_npc_by_id(name) {
     } return null; // If nothing is returned, we return null to let us know the npc we specified doesn't exist
 }
 
+// Always leaves merchant with one inventory space by sending last item in bags to the bank
 function fix_full_inventory() {
     // Iterates through inventory and counts filled slots
     let filledSlots = 0;
@@ -163,7 +164,7 @@ function buy_potions() {
     }
 }
 
-// Refactored to be more efficient than default function
+// Refactored to be more efficient than the games default function
 function use_potions() {
     // Immediately need mana to be able to continue attacking, use skills, etc
     if (character.mp <= character.mp_cost) {
@@ -188,9 +189,11 @@ function use_potions() {
     }
 }
 
+// Makes merchant always keep 50 of each type of upgrade scroll
 function buy_upgrade_scrolls() {
-    // Makes merchant always keep 50 of each type of upgrade scroll
+    // If our character is a merchant and isnt moving
     if (character.name == merchant_name && !smart.moving) {
+        // Checks if we have 50 of each scroll before restocking back up to 50
         keep_certain_amount("scroll0", 50);
         keep_certain_amount("scroll1", 50);
         keep_certain_amount("cscroll0", 50);
@@ -200,20 +203,20 @@ function buy_upgrade_scrolls() {
 
 // str, int
 function keep_certain_amount(item, amount) {
-    // If the quantity of our item is less than the amount we want...
+    // If the quantity of our item is less than the amount we want to keep...
     if (quantity(item) <= amount) {
         // Buy item
         parent.buy_with_gold(item);
     }
 }
 
-// We need the merchant to have their stand opened in order to best sell items and also farm xp
+// Keep our merchant stand open if stopped and closed if we are moving
 function open_close_stand() {
     if (character.moving) {
-        // We close the stand with a socket emit
+        // We close the stand with a socket emit if moving
         parent.socket.emit("merchant", { close: 1 });
     } else {
-        // We open the stand, and have to use the 'locate_item(name)' function to locate the slot the stand is in
+        // If not moving we open the stand, and have to use the 'locate_item(name)' function to locate the slot the stand is in
         parent.socket.emit("merchant", { num: locate_item('stand0') });
     }
 }
@@ -224,14 +227,14 @@ function start_farmers() {
     for (let i in farmer_names) {
         let farmer = farmer_names[i]; // Define each farmer
         if (farmer) {
-            // This will start a cahracter based on where we are in the array loop
+            // This will start a character based on where we are in the array loop
             // you can add strings for character and code slot names
             parent.start_character_runner(farmer, code_name);
         }
     }
 }
 
-// The function the merchant uses to try and create a party
+// The function the merchant uses to send party invites
 function create_party() {
     // You add a string of the character name you want to invite
     send_party_invite(farmer_names[0]);
