@@ -27,8 +27,8 @@ const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyo
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
 const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
 
-load_code("upgradeCompound"); // Compounding/upgrading
-load_code("ponty"); // Buys from Ponty
+load_code("upgradeCompound"); // upgrading/Compounding, refer to upgradeCompound.js
+load_code("ponty"); // Buys from Ponty, refer to ponty.js
 
 // Run all code only once
 setTimeout(function () {
