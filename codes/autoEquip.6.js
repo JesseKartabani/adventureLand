@@ -8,5 +8,5 @@ function addButtons() {
 }
 
 function auto_equip() {
-    smart_move(bank_loaction[1])
+    smart_move(bank_loaction[1]);
 }
