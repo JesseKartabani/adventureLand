@@ -313,8 +313,9 @@ function farm_normally() {
 function handle_monster_hunts() {
     var npc = get_npc_by_id('monsterhunter'); // Refer to function for details
     var npc_location = { x: npc.x, y: npc.y, map: npc.map };
-    // Checks to see if we have a monster hunting quest
-    if (character.s.monsterhunt == undefined) { // If we do not have a quest
+    var current_server = parent.server_region + ' ' + parent.server_identifier;
+    // Checks to see if we have a monster hunting quest and if we are on our main server
+    if (character.s.monsterhunt == undefined && current_server == "EU I") { // If we do not have a quest and we are on main server
         // Go get a quest from daisy
         if (!smart.moving) {
             smart_move(npc_location, function () {
