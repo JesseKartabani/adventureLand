@@ -1,7 +1,7 @@
 var upgradeMaxLevel = 7; //Max level it will stop upgrading items at if enabled
 var upgradeWhitelist = 
 	{
-		//ItemName, Max Level
+		// ItemName, Max Level
 		pickaxe: 5,
 		rod: 5,
 		pyjamas: upgradeMaxLevel,
@@ -54,7 +54,7 @@ var upgradeWhitelist =
 
 var combineWhitelist = 
 	{
-		//ItemName, Max Level
+		// ItemName, Max Level
 		wbook0: 3,
 		lostearring: 2,
 		strearring: 3,
@@ -109,13 +109,13 @@ function upgrade() {
 				return;
 			  }
 			  if (character.q.upgrade == undefined) {
-				parent.socket.emit('upgrade', {
-					item_num: i,
-					scroll_num: scroll_slot,
-					offering_num: null,
-					clevel: c.level
-				  });
-				  return;
+				  parent.socket.emit('upgrade', {
+					  item_num: i,
+					  scroll_num: scroll_slot,
+					  offering_num: null,
+					  clevel: c.level
+				    });
+				    return;
 			  }
 			}
     	}
@@ -154,7 +154,6 @@ function compound_items() {
 			  });
 			  return;
 		}
-      
     }
   }
 }
