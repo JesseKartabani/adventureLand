@@ -684,7 +684,7 @@ function buy_bow () {
         if(character.ctype == "merchant") {
             buy("bow", 1);
         }
-    }, 20000);
+    }, 30000);
 }
 
 buy_bow();
