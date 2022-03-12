@@ -6,7 +6,6 @@
     * Phoneix farming
     * Ranger kiting for hard mobs
     * Merchant mining/fishing
-    * Auto bank full upgraded gear
 */
 
 // This is for zooming game in
@@ -27,9 +26,10 @@ const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyo
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
 const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
 
-load_code("upgradeCompound"); // upgrading/Compounding, refer to upgradeCompound.js
+load_code("upgradeCompound"); // Auto upgrading/compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
-load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade
+load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade, refer to autoEquip.js
+load_code("autoBank"); // Merchant auto banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
 
 // Run all code only once
 setTimeout(function () {
