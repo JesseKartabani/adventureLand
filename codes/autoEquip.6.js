@@ -1,7 +1,7 @@
 // How to access each bank teller
 // character.bank.items0[]
 // character.bank.items1[]
-
+const lvl = 8;
 const ranger_set = [
     "wcap",
     "wbreeches"
@@ -33,13 +33,32 @@ function retrieve_bank_item(names, lvl) {
             let item = slot.name; // Name of whatever item is in current slot
             let level = slot.level; // Level of whatever item is in current slot
             // if the item is in our list and is high enough level
-            if (names.inculdes(item) && level >= lvl) {
+            if (names.includes(item) == true && level >= lvl) {
                 // Take that item out of the bank
                 bank_retrieve("items0", i);
             }
         }
     }
 }
+
+// Checks if an item is an upgrade for our character 
+function is_upgrade(gear_name) {
+    // Loops through all the gear we are wearing
+    for (let i in parent.character.slots) {
+        let slot = parent.character.slots[i]; // This is the gear type ("ring1, earring1, etc")
+        // If slot isn't empty we can get the level of the item
+        if (slot != null) {
+            let level = slot.level;
+            // If the name of the gear is the same we compare their levels
+            if (slot.name == gear_name && lvl > level) {
+                return true; // Item is higher level than what we currently have on
+            } else {
+                return false; // Item is not an upgrade
+            }
+        }
+    }
+}
+
 setInterval(function () {
     auto_equip();
 }, 10000);
