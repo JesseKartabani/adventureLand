@@ -31,6 +31,7 @@ const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "
 
 load_code("upgradeCompound"); // upgrading/Compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
+load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade
 
 // Run all code only once
 setTimeout(function () {
