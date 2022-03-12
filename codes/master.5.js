@@ -6,6 +6,7 @@
     * Phoneix farming
     * Ranger kiting for hard mobs
     * Merchant mining/fishing
+    * Death log
 */
 
 // This is for zooming game in
