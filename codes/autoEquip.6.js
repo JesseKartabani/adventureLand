@@ -4,7 +4,10 @@
 const lvl = 8; // This is what is_upgrade uses to calculate highest level
 const ranger_set = [ // Desired set of armour for ranger class
     "wcap",
-    "wbreeches"
+    "wbreeches",
+    "wshoes",
+    "wgloves",
+    "wattire"
 ];
 // This is the back of the bank
 const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
