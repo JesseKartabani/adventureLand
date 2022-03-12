@@ -7,7 +7,7 @@ var upgradeWhitelist =
 		pyjamas: upgradeMaxLevel,
 		bunnyears: upgradeMaxLevel,
 		carrotsword: upgradeMaxLevel,
-		bow: 8,
+		bow: 9,
 		quiver: 7,
 		firestaff: 7,
 		firebow: 7,
