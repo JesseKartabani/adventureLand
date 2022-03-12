@@ -77,7 +77,7 @@ function inventory_equip() {
     }
 }
 
-// Auto equips highest level ranger set from bank every 50 minutes
+// Auto equips highest level ranger set from the bank
 setInterval(function () {
     auto_equip(ranger_set);
 }, 10000);
