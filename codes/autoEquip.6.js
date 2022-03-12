@@ -17,7 +17,7 @@ function auto_equip(set) {
         // Once we are inside the bank
         if (character.map == "bank") {
             // We retrieve any items in our set that count as an upgrade
-            retrieve_bank_item(set)
+            retrieve_bank_item(set);
         }
     }
 }
@@ -50,6 +50,23 @@ function is_upgrade(gear_name) {
             // If the name of the gear is the same we compare their levels
             if (slot.name == gear_name && lvl > level) {
                 return true; // Item is an upgrade so we return true
+            }
+        }
+    }
+}
+
+// Checks inventory for a gear upgrade and equips it
+function inventory_equip() {
+    // Loops through all items in our inventory
+    for (let i in character.items) {
+        let slot = character.items[i];
+        // If the slot in our inventory isn't empty
+        if (slot != null) {
+            let item = slot.name; // Name of whatever item is in current slot
+            // If that item is an upgrade
+            if (is_upgrade(item) == true) {
+                // Then we equip that item
+                equip(i); 
             }
         }
     }
