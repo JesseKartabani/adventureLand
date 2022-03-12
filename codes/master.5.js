@@ -649,20 +649,15 @@ function server_logic(server, new_region, server_number) {
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // If we are on our main server main_server We change servers after an hour
     // To change main server replace main_server with your choice of server
-    if (current_server == main_server) {
-        if (server == current_server) {
-            setTimeout(function () {
-                change_server(new_region, server_number)
-            }, hour)
-        }
-    }
+    if (current_server == main_server && server == current_server) {
+        setTimeout(function () {
+            change_server(new_region, server_number)
+        }, hour)
     // If we are not on main server change server each minute
-    else {
-        if (server == current_server) {
-            setTimeout(function () {
-                change_server(new_region, server_number)
-            }, minute)
-        }
+    } else if (server == current_server) {
+        setTimeout(function () {
+            change_server(new_region, server_number)
+        }, minute)
     }
 }
 
@@ -672,7 +667,7 @@ function buy_bow () {
         if(character.ctype == "merchant") {
             buy("bow", 1);
         }
-    }, 10000);
+    }, 15000);
 }
 
 buy_bow();
