@@ -18,6 +18,8 @@ function auto_equip(set) {
         if (character.map == "bank") {
             // We retrieve any items in our set that count as an upgrade
             retrieve_bank_item(set);
+            // Then we equip any retrieved items
+            inventory_equip();
         }
     }
 }
