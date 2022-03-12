@@ -6,9 +6,7 @@
     * Phoneix farming
     * Ranger kiting for hard mobs
     * Merchant mining/fishing
-    * Auto equip best gear in bank for farmers button
     * Auto bank full upgraded gear
-    * Lower code cost of upgradeCompound
 */
 
 // This is for zooming game in
