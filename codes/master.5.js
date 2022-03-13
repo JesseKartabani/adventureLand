@@ -19,7 +19,7 @@ const farm_monster = ['bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
 const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
-const potion_types = ['hpot0', 'mpot0', 400]; // Value is stack amount desired
+const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
 const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
 const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const merchant_name = party_names[0];
@@ -441,7 +441,7 @@ function retain_gold_amount() {
 // this one will ask the merchant to bring potions based on three things...
 function request_merchant() {
     // 1) How many health pots we have. 2) How mana mana pots we have. 3) How much inventory space we have
-    if (quantity(potion_types[0]) < 25 || quantity(potion_types[1]) < 25 || character.esize < 5) {
+    if (quantity(potion_types[0]) < 100 || quantity(potion_types[1]) < 100 || character.esize < 5) {
         // If any of those conditions are met, then we need a visit from the merchant
         // We need to give the merchant some information when we ping them.
         var data = {
