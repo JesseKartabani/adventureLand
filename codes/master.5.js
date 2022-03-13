@@ -244,17 +244,25 @@ function create_party() {
     send_party_invite(farmer_names[2]);
 }
 
-// Checks if an item is an upgrade for our character 
-function is_upgrade(gear_name) {
+// Checks if an item is an upgrade for our character, this is only used by send item to merchant function
+function is_upgrade_2(gear_name) {
     // Loops through all the gear we are wearing
     for (let i in parent.character.slots) {
         let slot = parent.character.slots[i]; // This is the gear type ("ring1, earring1, etc")
         // If slot isn't empty we can get the level of the item
         if (slot != null) {
-            let level = slot.level;
-            // If the name of the gear is the same we compare their levels
-            if (slot.name == gear_name && lvl > level) {
-                return true; // Item is an upgrade so we return true
+            let level = slot.level; // Level of item we have on
+            // Loops through our inventory so we can compare levels with what we are wearing
+            for (let j in character.items) {
+                let inv_slot = character.items[j];
+                // If inventory slot isn't empty
+                if (inv_slot != null) {
+                    let desired_level = upgradeWhitelist[inv_slot.name];
+                    // If the name of the gear is the same we compare their levels
+                    if (slot.name == gear_name && level >= desired_level) {
+                        return true; // Item is an upgrade so we return true
+                    }
+                }
             }
         }
     }
@@ -272,7 +280,7 @@ function send_items_to_merchant() {
                 let slot = character.items[i]; // This defines a slot in the loop
                 if (slot != null) { // If something is in the slot, and it's not empty
                     let name = slot.name; // We grab the item name
-                    if (!keep_whitelist.includes(name) && !is_upgrade(name)) { // If we don't have the item whitelisted to keep
+                    if (!keep_whitelist.includes(name) && is_upgrade_2(name) != true) { // If we don't have the item whitelisted to keep
                         // We sell the item.
                         // i is for the current slot in your loop
                         // 9999 is to sell the max amount of whatever is in the slot
