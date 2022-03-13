@@ -1,6 +1,12 @@
 // ONLY WORKS WITH LEFT BANK TELLER.
 // DOESNT WORK WITH ACCESSORIES.
 
+/*
+TODO:
+    NEED TO CHANGE INTO A LIST AND USE NEW IS UPGRADE FUNCTION, THIS WILL
+    ENABLE IT TOO WORK WITH ACCESSORIES AND BE ABLE TO HAVE EVERY ITEM USING A
+    UNIQUE LEVEL IF NEEDED.
+*/
 const lvl = 8; // This is what is_upgrade uses to calculate highest level
 const ranger_set = [ // Desired set of armour for ranger class
     "wcap",
