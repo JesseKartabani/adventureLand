@@ -1,5 +1,6 @@
 // This is the back of the bank
-const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
+//const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
+
 // Item, level
 var bank_whitelist = {
     // Maxed upgrades
