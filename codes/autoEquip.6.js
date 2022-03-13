@@ -6,6 +6,8 @@ TODO:
     NEED TO CHANGE INTO A LIST AND USE NEW IS UPGRADE FUNCTION, THIS WILL
     ENABLE IT TOO WORK WITH ACCESSORIES AND BE ABLE TO HAVE EVERY ITEM USING A
     UNIQUE LEVEL IF NEEDED.
+
+    DONT FORGET TO ADD NEW RANGER_SET INTO MASTER'S VERSION OF IS_UPGRADE
 */
 const lvl = 8; // This is what is_upgrade uses to calculate highest level
 const ranger_set = [ // Desired set of armour for ranger class
