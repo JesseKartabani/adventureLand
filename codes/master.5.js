@@ -684,14 +684,3 @@ function server_logic(server, new_region, server_number) {
         }, minute)
     }
 }
-
-// Merchant buys one bow every 10 seconds (only using this until I have 3 +9 bows)
-function buy_bow () {
-    setInterval(function () {
-        if(character.ctype == "merchant") {
-            buy("bow", 1);
-        }
-    }, 30000);
-}
-
-buy_bow();
