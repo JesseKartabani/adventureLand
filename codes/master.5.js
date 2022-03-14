@@ -30,7 +30,7 @@ const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "
 load_code("upgradeCompound"); // Auto upgrading/compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
 //load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade, refer to autoEquip.js
-load_code("autoBank"); // Merchant auto banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
+//load_code("autoBank"); // Merchant auto banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
 
 // Run all code only once
 setTimeout(function () {

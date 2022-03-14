@@ -1,5 +1,5 @@
 // This is the back of the bank
-//const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
+const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
 
 // Item, level
 var bank_whitelist = {
@@ -78,7 +78,7 @@ function auto_bank() {
             if (slot != null) {
                 let level = bank_whitelist[slot.name];
                 // If the level matches what is set in bank whitelist
-                if (level && slot.level == level) {
+                if (slot.level == level) {
                     // We move to the bank
                     smart_move(bank_loaction[1]);
                     // Once we are inside the bank
@@ -94,4 +94,4 @@ function auto_bank() {
 // Auto banks every 40 minutes
 setInterval(function () {
     auto_bank();
-}, 2400000);
+}, /*2400000*/ 10000);
