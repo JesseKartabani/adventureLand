@@ -280,7 +280,7 @@ function send_items_to_merchant() {
                 let slot = character.items[i]; // This defines a slot in the loop
                 if (slot != null) { // If something is in the slot, and it's not empty
                     let name = slot.name; // We grab the item name
-                    if (!keep_whitelist.includes(name) && is_upgrade_inv(name) != true) { // If we don't have the item whitelisted to keep
+                    if (!keep_whitelist.includes(name)) { // If we don't have the item whitelisted to keep
                         // We sell the item.
                         // i is for the current slot in your loop
                         // 9999 is to sell the max amount of whatever is in the slot
