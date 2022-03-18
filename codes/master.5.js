@@ -133,20 +133,18 @@ function get_npc_by_id(name) {
 function fix_full_inventory() {
     // Iterates through inventory and counts filled slots
     let filledSlots = 0;
-    for (let i = 0; i < character.items.length; i++) {
+    for (let i in character.items) {
         const item = character.items[i]
-        if (item !== null) {
+        if (item != null) {
             filledSlots++
         }
     }
     // If inventory is full (42 is total spaces in inventory)
-    if (filledSlots === 42) {
-        if (!smart.moving) {
-            // Move to bank and store last item in inventory
-            smart_move("bank");
-            bank_store(41);
-        }
-    }
+    if (filledSlots != 42) return; 
+    if (smart.moving) return; 
+    // Move to bank and store last item in inventory
+    smart_move("bank");
+    bank_store(41);
 }
 
 // Run only by the merchant, who delivers potions to the farmers
