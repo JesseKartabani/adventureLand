@@ -201,11 +201,10 @@ function buy_upgrade_scrolls() {
 
 // str, int
 function keep_certain_amount(item, amount) {
-    // If the quantity of our item is less than the amount we want to keep...
-    if (quantity(item) <= amount) {
-        // Buy item
-        parent.buy_with_gold(item);
-    }
+    // If the quantity of the item is greater than the amount we want return
+    if (quantity(item) >= amount) return;
+    // else buy item
+    parent.buy_with_gold(item);
 }
 
 // Keep our merchant stand open if stopped and closed if we are moving
