@@ -635,15 +635,14 @@ function warrior_skills() {
 // Uses hunter spells
 function hunter_skills() {
     // If class is ranger and mana is over 300
-    if (character.ctype == "ranger") {
-        if (character.mp >= 300) {
-            var target = get_targeted_monster;
-            setInterval(function () {
-                // Casts 3shot every 1 seconds if can use
-                use_skill("3shot", target);
-            }, 1000);
-        }
-    }
+    if (character.ctype != "ranger") return;
+    if (character.mp < 300) return;
+
+    setInterval(function () {
+        var target = get_targeted_monster;
+        // Casts 3shot every 1 seconds if can use
+        use_skill("3shot", target);
+    }, 1000);  
 }
 
 // Stays on main server for one hour before cycling through all servers
