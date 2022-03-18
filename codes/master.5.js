@@ -9,9 +9,9 @@
     * Death log
 */
 
-// This is for zooming game in
+// Zoom game in by 1.25x
 const { webFrame } = require('electron');
-webFrame.setZoomFactor(1.25); // 1.25x
+webFrame.setZoomFactor(1.25);
 
 // Global variables
 const main_server = "EU I"; // If you change this you must also change visit_servers function
@@ -46,7 +46,7 @@ setInterval(function () {
     master_farmers(); // any farmer uses code
 }, 250);
 
-// Looting on the fastest interval too keep up with chest drops
+// Loot on the fastest interval too keep up with chest drops
 setInterval(function () {
     loot();
 }, 150);
@@ -174,7 +174,6 @@ function use_potions() {
             parent.use_skill('mp');
         }
     } else {
-
         // Focuses on health before mana, as long as there's just enough mana
         if (character.hp <= character.max_hp - parent.G.items[potion_types[0]].gives[0][1]) {
             if (quantity(potion_types[0]) > 0) {
@@ -191,7 +190,7 @@ function use_potions() {
     }
 }
 
-// Makes merchant always keep 50 of each type of upgrade scroll
+// Merchant always keep 50 of each type of upgrade scroll
 function buy_upgrade_scrolls() {
     // If our character is a merchant and isnt moving
     if (character.name == merchant_name && !smart.moving) {
@@ -399,8 +398,7 @@ function handle_monster_hunts() {
     }
 }
 
-// This tries to kill monsters that the monsterhunter npc assigns quests for.
-// Useful for getting a tracker and monster token farming
+// Farms normally if we cant complete our monster hunt
 function handle_farming() {
     // Make sure we have quests at all times, and decide if we can complete them
     handle_monster_hunts();
@@ -408,7 +406,7 @@ function handle_farming() {
     farm_normally(); // Refer to function for details
 }
 
-// Custom function to be used multiple times, speaks for itself (search it to see how it's being used)
+// Custom attack function
 function attack_monsters(target) {
     // If a target has been defined
     if (target) {
@@ -491,7 +489,7 @@ function on_cm(sender, data) {
     }
 }
 
-// We loop through the inventory to find an item by name.
+// Loop through the inventory to find an item by name
 function locate_item(name) {
     for (let i in character.items) {
         let slot = character.items[i];
@@ -505,7 +503,7 @@ function locate_item(name) {
     return null;
 }
 
-// We sell items by looping through the inventory and checking our custom whitelist
+// Sells items in sell_whitelist
 function sell_items() {
     for (let i in character.items) {
         let slot = character.items[i];
@@ -518,7 +516,7 @@ function sell_items() {
     }
 }
 
-// We tell our merchant where to idle when they aren't doing anything
+// Tell our merchant where to idle when they aren't doing anything
 function merchant_handle_location_idle() {
     var location = merchant_idle[1]; // Check the variable to see how we tell them where to "idle"
     if (character.map != location.map) {
@@ -572,7 +570,7 @@ function handle_party() {
     }
 }
 
-// We can exchange items based on a whitelist array we create
+// Exchanges items in our exchange_whitelist
 function exchange_items() {
     // Loop through our inventory
     for (let i in character.items) {
