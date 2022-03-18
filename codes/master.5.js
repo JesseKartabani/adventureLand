@@ -191,13 +191,12 @@ function use_potions() {
 // Merchant always keep 50 of each type of upgrade scroll
 function buy_upgrade_scrolls() {
     // If our character is a merchant and isnt moving
-    if (character.name == merchant_name && !smart.moving) {
-        // Checks if we have 50 of each scroll before restocking back up to 50
-        keep_certain_amount("scroll0", 50);
-        keep_certain_amount("scroll1", 50);
-        keep_certain_amount("cscroll0", 50);
-        keep_certain_amount("cscroll1", 50);
-    }
+    if (character.name != merchant_name && smart.moving) return;
+    // Checks if we have 50 of each scroll before restocking back up to 50
+    keep_certain_amount("scroll0", 50);
+    keep_certain_amount("scroll1", 50);
+    keep_certain_amount("cscroll0", 50);
+    keep_certain_amount("cscroll1", 50);
 }
 
 // str, int
