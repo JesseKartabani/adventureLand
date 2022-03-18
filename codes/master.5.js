@@ -303,14 +303,10 @@ function send_gold_to_merchant() {
 // The farmers will try to farm normal monsters if they deem the monsters designated in hunting quests too hard
 function farm_normally() {
     // If we don't have a monster hunt quest, don't farm normally, go get a quest
-    if (character.s.monsterhunt == undefined) {
-        return; // Stop running the function
-    } else {
-        // If we do have a quest and the monster to kill is in our whitelist
-        if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) {
-            return; // Stop running the function
-        }
-    }
+    if (character.s.monsterhunt == undefined) return; 
+    // If we do have a quest and the monster to kill is in our whitelist stop running the function
+    if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) return;
+
     var target = get_targeted_monster(); // If we have a target, define it
     // This checks to make sure any monster around is in our farm_monster array
     // No target means it's safe to assume another player has not aggro'd it, and we get the rewards on kill
