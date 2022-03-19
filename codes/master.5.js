@@ -374,13 +374,10 @@ function attack_monsters(target) {
     if (target) {
         var distance = distance_to_point(target.real_x, target.real_y, character.real_x, character.real_y);
         // If we can attack it
-        if (distance <= character.range) {
-            // If we are not in cooldown
-            if (can_attack(target)) {
-                attack(target);
-            }
+        if (distance <= character.range && can_attack(target)) {
+            attack(target);
+        // Else if we are not within attack range and not moving
         } else if (!character.moving) {
-            // If we are not within attack range and not moving
             move(
                 /*
                     This is similar too the 'distance_to_point(x1, y1, x2, y2)' function,
