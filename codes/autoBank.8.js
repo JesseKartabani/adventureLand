@@ -75,15 +75,20 @@ function auto_bank() {
         // Loop through our inventory
         for (let i in character.items) {
             let slot = character.items[i];
+            // If the slot isnt empty we get the name and level of whats in it
             if (slot != null) {
-                let level = bank_whitelist[slot.name];
-                // If the level matches what is set in bank whitelist
-                if (slot.level == level) {
-                    // We move to the bank
-                    smart_move(bank_loaction[1]);
-                    // Once we are inside the bank
-                    if (character.map == "bank") {
-                        bank_store(i); // We store that item
+                let slot_level = slot.level;
+                let slot_name = slot.name;
+                // Loop through our bank whitelist
+                for (let j in bank_whitelist) {
+                    // If the level and name are equal to whats in our slot
+                    if (slot_level == bank_whitelist[j] && slot_name == j) {
+                        // We move to the bank
+                        smart_move(bank_loaction[1]);
+                        // Once we are inside the bank
+                        if (character.map == "bank") {
+                            bank_store(i); // We store that item
+                        }
                     }
                 }
             }
@@ -94,4 +99,4 @@ function auto_bank() {
 // Auto banks every 40 minutes
 setInterval(function () {
     auto_bank();
-}, /*2400000*/ 10000);
+}, 2400000);
