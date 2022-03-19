@@ -523,18 +523,13 @@ function handle_party() {
                 }
             }
         }
-        // Only farmers run this party of the logic
-    } else if (farmer_names.includes(character.name)) {
-        // If we are not in any party
-        if (character.party == null) {
-            accept_party_invite(merchant_name); // Accept invites from our merchant
-        } else {
-            // If we are in a party, but it's not the merchant's party...
-            if (character.party != merchant_name) {
-                // Leave this party to go to the merchant's party
-                leave_party();
-            }
-        }
+        // Only farmers run this party of the logic if we are not in any party
+    } else if (farmer_names.includes(character.name) && character.party == null) {
+        accept_party_invite(merchant_name); // Accept invites from our merchant
+    } else if (character.party != merchant_name) {
+        // If we are in a party, but it's not the merchant's party...
+        // Leave this party to go to the merchant's party
+        leave_party();
     }
 }
 
