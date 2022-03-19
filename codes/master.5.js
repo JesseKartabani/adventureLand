@@ -319,7 +319,7 @@ function handle_monster_hunts() {
                 setTimeout(function () {
                     // This then acts like we are clicking on "accept quest", and get assigned one
                     parent.socket.emit("monsterhunt");
-                }, 500); // Wait 1/4th second after first click
+                }, 500); // Wait 1/2 second after first click
             });
         }
     } else { // If we DO have a monster hunting quest active...
@@ -329,37 +329,32 @@ function handle_monster_hunts() {
         var time = character.s.monsterhunt.ms; // Example 1768677 milliseconds
         // We check the name and location of the current server we are on
         var current_server = parent.server_region + ' ' + parent.server_identifier;
-        // If we can successfully kill the quest monster
+        // If monster is in our whitelist
         if (monster_hunt_whitelist.includes(monster)) {
-            // If the server we are on is the same as the one required in the quest
-            if (current_server == server) {
-                // If we still have monsters left to kill
-                if (amount > 0) {
-                    var target = get_targeted_monster();
-                    if (target) {
-                        attack_monsters(target); // Refer to function for details
+            // Return if we are on the wrong server for our monster hunt
+            if (current_server != server) return;
+            // If we still have monsters left to kill
+            if (amount > 0) {
+                var target = get_targeted_monster();
+                if (target) {
+                    attack_monsters(target); // Refer to function for details
+                } else {
+                    // Refer to the 'farm_normally()' custom function
+                    var desired_monster = get_nearest_monster({ type: monster, no_target: true });
+                    if (!desired_monster && !smart.moving) {
+                        smart_move(monster);
                     } else {
-                        // Refer to the 'farm_normally()' custom function
-                        var desired_monster = get_nearest_monster({ type: monster, no_target: true });
-                        if (!desired_monster) {
-                            if (!smart.moving) {
-                                smart_move(monster);
-                            }
-                        } else {
-                            change_target(desired_monster);
-                        }
-                    }
-                } else { // If we have killed enough to complete the quest
-                    // We can turn in the quest
-                    if (!smart.moving) {
-                        smart_move(npc_location, function () {
-                            // Once we arrive at daisy, we interact with her to turn in the quest
-                            setTimeout(function () {
-                                parent.socket.emit("monsterhunt");
-                            }, 250); // 1/4th second after arriving
-                        });
+                        change_target(desired_monster);
                     }
                 }
+            } else if (!smart.moving) { // If we have killed enough to complete the quest and we aren't smart moving
+                // We can turn in the quest
+                smart_move(npc_location, function () {
+                    // Once we arrive at daisy, we interact with her to turn in the quest
+                    setTimeout(function () {
+                        parent.socket.emit("monsterhunt");
+                    }, 250); // 1/4th second after arriving
+                });
             }
         }
     }
