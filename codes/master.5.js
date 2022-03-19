@@ -631,9 +631,9 @@ function hunter_skills() {
     if (character.mp < 300) return;
 
     setInterval(function () {
-        var target = get_targeted_monster;
+        var desired_monster = get_nearest_monster({ type: farm_monster[0], no_target: true });
         // Casts 3shot every 1 seconds if can use
-        use_skill("3shot", target);
+        use_skill("3shot", desired_monster);
     }, 1000);  
 }
 
