@@ -142,8 +142,8 @@ function fix_full_inventory() {
         }
     }
     // If inventory is full (42 filledSlots)
-    if (filledSlots != 42) return; 
-    if (smart.moving) return; 
+    if (filledSlots != 42) return;
+    if (smart.moving) return;
     // Move to bank and store last item in inventory
     smart_move("bank");
     bank_store(41);
@@ -281,7 +281,7 @@ function send_gold_to_merchant() {
 // The farmers will try to farm normal monsters if they deem the monsters designated in hunting quests too hard
 function farm_normally() {
     // If we don't have a monster hunt quest, don't farm normally, go get a quest
-    if (character.s.monsterhunt == undefined) return; 
+    if (character.s.monsterhunt == undefined) return;
     // If we do have a quest and the monster to kill is in our whitelist stop running the function
     if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) return;
 
@@ -376,7 +376,7 @@ function attack_monsters(target) {
         // If we can attack it
         if (distance <= character.range && can_attack(target)) {
             attack(target);
-        // Else if we are not within attack range and not moving
+            // Else if we are not within attack range and not moving
         } else if (!character.moving) {
             move(
                 /*
@@ -551,7 +551,7 @@ function exchange_items() {
 
 // Uses priest spells
 function priest_skills() {
-    if (character.ctype != "priest") return; 
+    if (character.ctype != "priest") return;
     var target = get_targeted_monster();
     setInterval(function () {
         use_skill("partyheal"); // Heals party
@@ -561,7 +561,7 @@ function priest_skills() {
 
 // Uses warrior spells
 function warrior_skills() {
-    if (character.ctype != "warrior") return; 
+    if (character.ctype != "warrior") return;
     var target = get_targeted_monster();
     setInterval(function () {
         use_skill("taunt", target); // Taunts target
@@ -620,7 +620,7 @@ function server_logic(server, new_region, server_number) {
         setTimeout(function () {
             change_server(new_region, server_number)
         }, hour)
-    // If we are not on main server change server each minute
+        // If we are not on main server change server each minute
     } else if (server == current_server) {
         setTimeout(function () {
             change_server(new_region, server_number)
