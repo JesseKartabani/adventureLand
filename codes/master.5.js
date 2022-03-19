@@ -27,10 +27,10 @@ const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyo
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
 const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
 
-load_code("upgradeCompound"); // Auto upgrading/compounding, refer to upgradeCompound.js
+load_code("upgradeCompound"); // Upgrading/compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
-//load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade, refer to autoEquip.js
-load_code("autoBank"); // Merchant auto banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
+//load_code("autoEquip"); // Equips gear from bank if it's an upgrade, refer to autoEquip.js
+load_code("autoBank"); // Merchant banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
 
 // Run all code only once
 setTimeout(function () {
@@ -101,15 +101,14 @@ function master_farmers() {
     }
 }
 
-// We take the x and y coordinates of a point, and compare it to another point
-// We can then derive the distance between two points
+// Comapare two x and y locations to find the total distance between
 function distance_to_point(x1, y1, x2, y2) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/pow
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
 
-// We can type the id in and find the location of an NPC anywhere in the game
+// We can type the id in and find the location of any NPC
 function get_npc_by_id(name) {
     // Look through all the maps in the game
     for (i in parent.G.maps) {
@@ -129,7 +128,7 @@ function get_npc_by_id(name) {
     } return null; // If nothing is returned, we return null to let us know the npc we specified doesn't exist
 }
 
-// Always leaves merchant with one inventory space by sending last item in bags to the bank
+// Leaves merchant with one inventory space by sending last item in bags to the bank
 function fix_full_inventory() {
     // Iterates through inventory and counts filled slots
     let filledSlots = 0;
@@ -139,7 +138,7 @@ function fix_full_inventory() {
             filledSlots++
         }
     }
-    // If inventory is full (42 is total spaces in inventory)
+    // If inventory is full (42 filledSlots)
     if (filledSlots != 42) return; 
     if (smart.moving) return; 
     // Move to bank and store last item in inventory
@@ -164,7 +163,7 @@ function buy_potions() {
     }
 }
 
-// Refactored to be more efficient than the games default function
+// Uses mana or hp potions accoring to our logic
 function use_potions() {
     // Immediately need mana to be able to continue attacking, use skills, etc
     if (character.mp <= character.mp_cost) {
@@ -266,7 +265,7 @@ function send_items_to_merchant() {
 
 // Farmers will send excess gold to the merchant
 function send_gold_to_merchant() {
-    var retain = retain_gold_amount(); // This function allows us to check how much gold i need to keep for potions
+    var retain = retain_gold_amount(); // This function allows us to check how much gold I need to keep for potions
     if (character.gold > retain) { // If we have a lot of gold...
         var send_amt = character.gold - retain;
         if (send_amt >= 1000) { // If we have at least 1,000 gold to send...
@@ -303,6 +302,7 @@ function farm_normally() {
     }
 }
 
+// Gets, completes and hands in monster hunts
 function handle_monster_hunts() {
     var npc = get_npc_by_id('monsterhunter'); // Refer to function for details
     var npc_location = { x: npc.x, y: npc.y, map: npc.map };
