@@ -203,7 +203,7 @@ function buy_upgrade_scrolls() {
 
 // str, int
 function keep_certain_amount(item, amount) {
-    // If the quantity of the item is greater than the amount we want return
+    // If the quantity of the item is greater than the amount we return
     if (quantity(item) >= amount) return;
     // else buy item
     parent.buy_with_gold(item);
@@ -292,16 +292,12 @@ function farm_normally() {
     if (target) { // If we are targeting something...
         // Try and kill it!
         attack_monsters(target); // Refer to function for details
-    } else { // If we are not targeting anything
-        if (desired_monster) { // If there is a monster we want to target and kill
-            // We target the desired monster
-            change_target(desired_monster);
-        } else { // If there's nothing around we want to kill...
-            if (!smart.moving) { // If not already smart moving...
-                // We will try and go find some monsters to kill
-                smart_move(farm_monster[0]);
-            }
-        }
+    } else if (desired_monster) { // If we are not targeting anything and there is a monster we want to target and kill
+        // We target the desired monster
+        change_target(desired_monster);
+    } else if (!smart.moving) { // If there's nothing around we want to kill and we aren't smart moving
+        // We will move too our first farm monster
+        smart_move(farm_monster[0]);
     }
 }
 
