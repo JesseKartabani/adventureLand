@@ -239,30 +239,6 @@ function create_party() {
     send_party_invite(farmer_names[2]);
 }
 
-// Checks if an item is an upgrade for our character, this is only used by send item to merchant function
-function is_upgrade_inv(gear_name) {
-    // Loops through all the gear we are wearing
-    for (let i in parent.character.slots) {
-        let slot = parent.character.slots[i]; // This is the gear type ("ring1, earring1, etc")
-        // If slot isn't empty we can get the level of the item
-        if (slot != null) {
-            let level = slot.level; // Level of item we have on
-            // Loops through our inventory so we can compare levels with what we are wearing
-            for (let j in character.items) {
-                let inv_slot = character.items[j];
-                // If inventory slot isn't empty
-                if (inv_slot != null) {
-                    let desired_level = upgradeWhitelist[inv_slot.name];
-                    // If the name of the gear is the same we compare their levels
-                    if (slot.name == gear_name && level >= desired_level) {
-                        return true; // Item is an upgrade so we return true
-                    }
-                }
-            }
-        }
-    }
-}
-
 // Farmers will send farmed items to the merchant
 function send_items_to_merchant() {
     var merchant = get_player(merchant_name);
