@@ -15,7 +15,7 @@ webFrame.setZoomFactor(1.25);
 
 // Global variables
 const main_server = "EU I"; // If you change this you must also change visit_servers function
-const farm_monster = ['bee']; // Can refactor to handle multiple monsters
+const farm_monster = ['arcticbee', 'bee']; // Can refactor to handle multiple monsters
 const code_name = 'master';
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
 const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
@@ -607,10 +607,10 @@ function hunter_skills() {
     if (character.mp < 300) return;
 
     setInterval(function () {
-        var desired_monster = get_nearest_monster({ type: farm_monster[0], no_target: true });
+        let targets = Object.values(parent.entities).filter(entity => entity.mtype === farm_monster[1] && is_in_range(entity, "3shot"));
         // Casts 3shot every 1 seconds if can use
-        use_skill("3shot", desired_monster);
-    }, 1000);  
+        use_skill("3shot", targets);
+    }, 1000);
 }
 
 // Stays on main server for one hour before cycling through all servers
