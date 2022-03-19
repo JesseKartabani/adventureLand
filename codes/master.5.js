@@ -13,19 +13,22 @@
 const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25);
 
-// Global variables
-const main_server = "EU I"; // If you change this you must also change visit_servers function
+// Monster we want to farm and monsters we want to monster hunt
 const farm_monster = ['arcticbee', 'bee']; // Can refactor to handle multiple monsters
-const code_name = 'master';
+const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/];
+// In game names
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
-const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
-const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
-const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
-const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const merchant_name = party_names[0];
 const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyone except our merchant
+// Items we will vendor, keep and exchange
+const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
+const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
-const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
+// Misc
+const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
+const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
+const code_name = 'master';
+const main_server = "EU I"; // If you change this you must also change visit_servers function
 
 load_code("upgradeCompound"); // Upgrading/compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
