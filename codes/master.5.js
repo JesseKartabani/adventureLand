@@ -571,33 +571,31 @@ function exchange_items() {
 
 // Uses priest spells
 function priest_skills() {
-    if (character.ctype == "priest") {
-        var target = get_targeted_monster();
-        setInterval(function () {
-            use_skill("partyheal"); // Heals party
-            use_skill("curse", target); // Debuffs enemy 
-        }, 5000); // every 5 seconds
-    }
+    if (character.ctype != "priest") return; 
+    var target = get_targeted_monster();
+    setInterval(function () {
+        use_skill("partyheal"); // Heals party
+        use_skill("curse", target); // Debuffs enemy 
+    }, 5000); // every 5 seconds
 }
 
 // Uses warrior spells
 function warrior_skills() {
-    if (character.ctype == "warrior") {
-        var target = get_targeted_monster();
-        setInterval(function () {
-            use_skill("taunt", target); // Taunts target
-        }, 3000); // Every 3 seconds
-        setInterval(function () {
-            use_skill("charge"); // Charge too target
-        }, 40000); // Every 40 seconds
-        /*
-        setInterval(function(){
-            if(character.hp <= character.max_hp / 2){
-               use_skill("hardshell"); // When half health hardshell is activated
-            }
-        }, 250);
-        */
-    }
+    if (character.ctype != "warrior") return; 
+    var target = get_targeted_monster();
+    setInterval(function () {
+        use_skill("taunt", target); // Taunts target
+    }, 3000); // Every 3 seconds
+    setInterval(function () {
+        use_skill("charge"); // Charge too target
+    }, 40000); // Every 40 seconds
+    /*
+    setInterval(function(){
+        if(character.hp <= character.max_hp / 2){
+            use_skill("hardshell"); // When half health hardshell is activated
+        }
+    }, 250);
+    */
 }
 
 // Uses hunter spells
