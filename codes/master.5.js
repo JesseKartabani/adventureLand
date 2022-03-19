@@ -385,18 +385,16 @@ function attack_monsters(target) {
             if (can_attack(target)) {
                 attack(target);
             }
-        } else {
-            // If we are not within attack range
-            if (!character.moving) { // If not already moving
-                move(
-                    /*
-                        This is similar too the 'distance_to_point(x1, y1, x2, y2)' function,
-                        except this one returns the center between two points, not the distance
-                    */
-                    character.real_x + (target.real_x - character.real_x) / 2,
-                    character.real_y + (target.real_y - character.real_y) / 2
-                );
-            }
+        } else if (!character.moving) {
+            // If we are not within attack range and not moving
+            move(
+                /*
+                    This is similar too the 'distance_to_point(x1, y1, x2, y2)' function,
+                    except this one returns the center between two points, not the distance
+                */
+                character.real_x + (target.real_x - character.real_x) / 2,
+                character.real_y + (target.real_y - character.real_y) / 2
+            );
         }
     }
 }
