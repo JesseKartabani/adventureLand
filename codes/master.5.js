@@ -6,9 +6,9 @@
     * Phoneix farming
     * Ranger kiting for hard mobs
     * Merchant mining/fishing
-    * Death log
+    * Death log 
 */
-
+//test
 // Zoom game in by 1.25x
 const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25);
