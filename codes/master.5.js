@@ -55,7 +55,7 @@ setInterval(function () {
 // Activates each classes skills according to functions logic
 //warrior_skills();
 //priest_skills(); // Refer to functions for details
-hunter_skills();
+//hunter_skills();
 
 // Each hour we will check every server for ponty items
 visit_servers();
