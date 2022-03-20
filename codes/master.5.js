@@ -8,7 +8,7 @@
     * Merchant mining/fishing
     * Death log 
 */
-//test
+
 // Zoom game in by 1.25x
 const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25);
