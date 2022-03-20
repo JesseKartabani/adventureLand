@@ -13,24 +13,27 @@
 const { webFrame } = require('electron');
 webFrame.setZoomFactor(1.25);
 
-// Global variables
-const main_server = "EU I"; // If you change this you must also change visit_servers function
+// Monster we want to farm and monsters we want to monster hunt
 const farm_monster = ['arcticbee', 'bee']; // Can refactor to handle multiple monsters
-const code_name = 'master';
+const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/];
+// In game names
 const party_names = ['JesseSells', 'Gollum', 'Samwise', 'Pippin']; // Keep merchant first 
-const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
-const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
-const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
-const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const merchant_name = party_names[0];
 const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyone except our merchant
+// Items we will vendor, keep and exchange
+const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
+const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
-const monster_hunt_whitelist = [farm_monster[0], "goo", "bee", "crab", "croc", "armadilo", "snake", "crab", "squig", "frog", "tortoise", "minimush", /*"spider"*/]; // Monsters we will monster hunt
+// Misc
+const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
+const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
+const code_name = 'master';
+const main_server = "EU I"; // If you change this you must also change visit_servers function
 
-load_code("upgradeCompound"); // Auto upgrading/compounding, refer to upgradeCompound.js
+load_code("upgradeCompound"); // Upgrading/compounding, refer to upgradeCompound.js
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
-//load_code("autoEquip"); // Auto equips gear from bank if it's an upgrade, refer to autoEquip.js
-load_code("autoBank"); // Merchant auto banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
+//load_code("autoEquip"); // Equips gear from bank if it's an upgrade, refer to autoEquip.js
+load_code("autoBank"); // Merchant banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
 
 // Run all code only once
 setTimeout(function () {
@@ -101,15 +104,14 @@ function master_farmers() {
     }
 }
 
-// We take the x and y coordinates of a point, and compare it to another point
-// We can then derive the distance between two points
+// Comapare two x and y locations to find the total distance between
 function distance_to_point(x1, y1, x2, y2) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sqrt
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/pow
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 }
 
-// We can type the id in and find the location of an NPC anywhere in the game
+// We can type the id in and find the location of any NPC
 function get_npc_by_id(name) {
     // Look through all the maps in the game
     for (i in parent.G.maps) {
@@ -129,7 +131,7 @@ function get_npc_by_id(name) {
     } return null; // If nothing is returned, we return null to let us know the npc we specified doesn't exist
 }
 
-// Always leaves merchant with one inventory space by sending last item in bags to the bank
+// Leaves merchant with one inventory space by sending last item in bags to the bank
 function fix_full_inventory() {
     // Iterates through inventory and counts filled slots
     let filledSlots = 0;
@@ -139,9 +141,9 @@ function fix_full_inventory() {
             filledSlots++
         }
     }
-    // If inventory is full (42 is total spaces in inventory)
-    if (filledSlots != 42) return; 
-    if (smart.moving) return; 
+    // If inventory is full (42 filledSlots)
+    if (filledSlots != 42) return;
+    if (smart.moving) return;
     // Move to bank and store last item in inventory
     smart_move("bank");
     bank_store(41);
@@ -164,7 +166,7 @@ function buy_potions() {
     }
 }
 
-// Refactored to be more efficient than the games default function
+// Uses mana or hp potions accoring to our logic
 function use_potions() {
     // Immediately need mana to be able to continue attacking, use skills, etc
     if (character.mp <= character.mp_cost) {
@@ -201,7 +203,7 @@ function buy_upgrade_scrolls() {
 
 // str, int
 function keep_certain_amount(item, amount) {
-    // If the quantity of the item is greater than the amount we want return
+    // If the quantity of the item is greater than the amount we return
     if (quantity(item) >= amount) return;
     // else buy item
     parent.buy_with_gold(item);
@@ -266,7 +268,7 @@ function send_items_to_merchant() {
 
 // Farmers will send excess gold to the merchant
 function send_gold_to_merchant() {
-    var retain = retain_gold_amount(); // This function allows us to check how much gold i need to keep for potions
+    var retain = retain_gold_amount(); // This function allows us to check how much gold I need to keep for potions
     if (character.gold > retain) { // If we have a lot of gold...
         var send_amt = character.gold - retain;
         if (send_amt >= 1000) { // If we have at least 1,000 gold to send...
@@ -279,7 +281,7 @@ function send_gold_to_merchant() {
 // The farmers will try to farm normal monsters if they deem the monsters designated in hunting quests too hard
 function farm_normally() {
     // If we don't have a monster hunt quest, don't farm normally, go get a quest
-    if (character.s.monsterhunt == undefined) return; 
+    if (character.s.monsterhunt == undefined) return;
     // If we do have a quest and the monster to kill is in our whitelist stop running the function
     if (monster_hunt_whitelist.includes(character.s.monsterhunt.id)) return;
 
@@ -290,19 +292,16 @@ function farm_normally() {
     if (target) { // If we are targeting something...
         // Try and kill it!
         attack_monsters(target); // Refer to function for details
-    } else { // If we are not targeting anything
-        if (desired_monster) { // If there is a monster we want to target and kill
-            // We target the desired monster
-            change_target(desired_monster);
-        } else { // If there's nothing around we want to kill...
-            if (!smart.moving) { // If not already smart moving...
-                // We will try and go find some monsters to kill
-                smart_move(farm_monster[0]);
-            }
-        }
+    } else if (desired_monster) { // If we are not targeting anything and there is a monster we want to target and kill
+        // We target the desired monster
+        change_target(desired_monster);
+    } else if (!smart.moving) { // If there's nothing around we want to kill and we aren't smart moving
+        // We will move too our first farm monster
+        smart_move(farm_monster[0]);
     }
 }
 
+// Gets, completes and hands in monster hunts
 function handle_monster_hunts() {
     var npc = get_npc_by_id('monsterhunter'); // Refer to function for details
     var npc_location = { x: npc.x, y: npc.y, map: npc.map };
@@ -320,7 +319,7 @@ function handle_monster_hunts() {
                 setTimeout(function () {
                     // This then acts like we are clicking on "accept quest", and get assigned one
                     parent.socket.emit("monsterhunt");
-                }, 500); // Wait 1/4th second after first click
+                }, 500); // Wait 1/2 second after first click
             });
         }
     } else { // If we DO have a monster hunting quest active...
@@ -330,37 +329,32 @@ function handle_monster_hunts() {
         var time = character.s.monsterhunt.ms; // Example 1768677 milliseconds
         // We check the name and location of the current server we are on
         var current_server = parent.server_region + ' ' + parent.server_identifier;
-        // If we can successfully kill the quest monster
+        // If monster is in our whitelist
         if (monster_hunt_whitelist.includes(monster)) {
-            // If the server we are on is the same as the one required in the quest
-            if (current_server == server) {
-                // If we still have monsters left to kill
-                if (amount > 0) {
-                    var target = get_targeted_monster();
-                    if (target) {
-                        attack_monsters(target); // Refer to function for details
+            // Return if we are on the wrong server for our monster hunt
+            if (current_server != server) return;
+            // If we still have monsters left to kill
+            if (amount > 0) {
+                var target = get_targeted_monster();
+                if (target) {
+                    attack_monsters(target); // Refer to function for details
+                } else {
+                    // Refer to the 'farm_normally()' custom function
+                    var desired_monster = get_nearest_monster({ type: monster, no_target: true });
+                    if (!desired_monster && !smart.moving) {
+                        smart_move(monster);
                     } else {
-                        // Refer to the 'farm_normally()' custom function
-                        var desired_monster = get_nearest_monster({ type: monster, no_target: true });
-                        if (!desired_monster) {
-                            if (!smart.moving) {
-                                smart_move(monster);
-                            }
-                        } else {
-                            change_target(desired_monster);
-                        }
-                    }
-                } else { // If we have killed enough to complete the quest
-                    // We can turn in the quest
-                    if (!smart.moving) {
-                        smart_move(npc_location, function () {
-                            // Once we arrive at daisy, we interact with her to turn in the quest
-                            setTimeout(function () {
-                                parent.socket.emit("monsterhunt");
-                            }, 250); // 1/4th second after arriving
-                        });
+                        change_target(desired_monster);
                     }
                 }
+            } else if (!smart.moving) { // If we have killed enough to complete the quest and we aren't smart moving
+                // We can turn in the quest
+                smart_move(npc_location, function () {
+                    // Once we arrive at daisy, we interact with her to turn in the quest
+                    setTimeout(function () {
+                        parent.socket.emit("monsterhunt");
+                    }, 250); // 1/4th second after arriving
+                });
             }
         }
     }
@@ -380,23 +374,18 @@ function attack_monsters(target) {
     if (target) {
         var distance = distance_to_point(target.real_x, target.real_y, character.real_x, character.real_y);
         // If we can attack it
-        if (distance <= character.range) {
-            // If we are not in cooldown
-            if (can_attack(target)) {
-                attack(target);
-            }
-        } else {
-            // If we are not within attack range
-            if (!character.moving) { // If not already moving
-                move(
-                    /*
-                        This is similar too the 'distance_to_point(x1, y1, x2, y2)' function,
-                        except this one returns the center between two points, not the distance
-                    */
-                    character.real_x + (target.real_x - character.real_x) / 2,
-                    character.real_y + (target.real_y - character.real_y) / 2
-                );
-            }
+        if (distance <= character.range && can_attack(target)) {
+            attack(target);
+            // Else if we are not within attack range and not moving
+        } else if (!character.moving) {
+            move(
+                /*
+                    This is similar too the 'distance_to_point(x1, y1, x2, y2)' function,
+                    except this one returns the center between two points, not the distance
+                */
+                character.real_x + (target.real_x - character.real_x) / 2,
+                character.real_y + (target.real_y - character.real_y) / 2
+            );
         }
     }
 }
@@ -487,18 +476,14 @@ function sell_items() {
 // Tell our merchant where to idle when they aren't doing anything
 function merchant_handle_location_idle() {
     var location = merchant_idle[1]; // Check the variable to see how we tell them where to "idle"
-    if (character.map != location.map) {
-        if (!smart.moving) {
-            setTimeout(function () {
-                smart_move(location);
-            }, 3000);
-        }
+    if (character.map != location.map && !smart.moving) {
+        setTimeout(function () {
+            smart_move(location);
+        }, 3000);
     } else {
         var distance = distance_to_point(location.x, location.y, character.real_x, character.real_y);
-        if (distance >= 10) {
-            if (!smart.moving) {
-                smart_move(location);
-            }
+        if (distance >= 10 && !smart.moving) {
+            smart_move(location);
         }
     }
 }
@@ -523,18 +508,13 @@ function handle_party() {
                 }
             }
         }
-        // Only farmers run this party of the logic
-    } else if (farmer_names.includes(character.name)) {
-        // If we are not in any party
-        if (character.party == null) {
-            accept_party_invite(merchant_name); // Accept invites from our merchant
-        } else {
-            // If we are in a party, but it's not the merchant's party...
-            if (character.party != merchant_name) {
-                // Leave this party to go to the merchant's party
-                leave_party();
-            }
-        }
+        // Only farmers run this party of the logic if we are not in any party
+    } else if (farmer_names.includes(character.name) && character.party == null) {
+        accept_party_invite(merchant_name); // Accept invites from our merchant
+    } else if (character.party != merchant_name) {
+        // If we are in a party, but it's not the merchant's party...
+        // Leave this party to go to the merchant's party
+        leave_party();
     }
 }
 
@@ -571,33 +551,31 @@ function exchange_items() {
 
 // Uses priest spells
 function priest_skills() {
-    if (character.ctype == "priest") {
-        var target = get_targeted_monster();
-        setInterval(function () {
-            use_skill("partyheal"); // Heals party
-            use_skill("curse", target); // Debuffs enemy 
-        }, 5000); // every 5 seconds
-    }
+    if (character.ctype != "priest") return;
+    var target = get_targeted_monster();
+    setInterval(function () {
+        use_skill("partyheal"); // Heals party
+        use_skill("curse", target); // Debuffs enemy 
+    }, 5000); // every 5 seconds
 }
 
 // Uses warrior spells
 function warrior_skills() {
-    if (character.ctype == "warrior") {
-        var target = get_targeted_monster();
-        setInterval(function () {
-            use_skill("taunt", target); // Taunts target
-        }, 3000); // Every 3 seconds
-        setInterval(function () {
-            use_skill("charge"); // Charge too target
-        }, 40000); // Every 40 seconds
-        /*
-        setInterval(function(){
-            if(character.hp <= character.max_hp / 2){
-               use_skill("hardshell"); // When half health hardshell is activated
-            }
-        }, 250);
-        */
-    }
+    if (character.ctype != "warrior") return;
+    var target = get_targeted_monster();
+    setInterval(function () {
+        use_skill("taunt", target); // Taunts target
+    }, 3000); // Every 3 seconds
+    setInterval(function () {
+        use_skill("charge"); // Charge too target
+    }, 40000); // Every 40 seconds
+    /*
+    setInterval(function(){
+        if(character.hp <= character.max_hp / 2){
+            use_skill("hardshell"); // When half health hardshell is activated
+        }
+    }, 250);
+    */
 }
 
 // Uses hunter spells
@@ -642,7 +620,7 @@ function server_logic(server, new_region, server_number) {
         setTimeout(function () {
             change_server(new_region, server_number)
         }, hour)
-    // If we are not on main server change server each minute
+        // If we are not on main server change server each minute
     } else if (server == current_server) {
         setTimeout(function () {
             change_server(new_region, server_number)
