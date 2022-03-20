@@ -23,10 +23,10 @@ const farmer_names = [party_names[1], party_names[2], party_names[3]]; // Everyo
 // Items we will vendor, keep and exchange
 const sell_whitelist = ['slimestaff', 'stinger', 'hpamulet', 'hpbelt', 'mushroomstaff', 'whiteegg']; // Items we want to vendor
 const exchange_whitelist = ['gem0', 'armorbox', 'weaponbox', 'redenvelopev4']; // Add items here for exchanging
+const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
 const keep_whitelist = [potion_types[0], potion_types[1], 'tracker']; // Farmers keep these items at all times
 // Misc
 const merchant_idle = [true, { map: 'main', x: -74, y: -140 }]; // Location has access to almost all npcs
-const potion_types = ['hpot0', 'mpot0', 600]; // Value is stack amount desired
 const code_name = 'master';
 const main_server = "EU I"; // If you change this you must also change visit_servers function
 
