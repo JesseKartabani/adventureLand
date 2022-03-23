@@ -12,7 +12,7 @@ function deathLog() {
         // Else if we are dead
         let timeOfDeath = new Date();
         let charName = character.name;
-        let killedBy = data.actor;
+        let killedBy = parent.entities[data.actor]?.mtype;
         let deathData = [charName, killedBy, timeOfDeath];
         // Write to file
         fs.appendFile(filePath, deathData + "\n", err => {
