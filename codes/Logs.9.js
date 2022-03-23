@@ -28,3 +28,17 @@ function deathLog() {
 setTimeout(function () {
     deathLog();
 }, 250);
+
+// TODO: Rare item logger
+// On loot check item name for rare drop
+// And on exchange check for rare item 
+
+// Sudo code
+
+// character.on loot
+// if name == rareItemWhiteList
+// store date
+// store id of mob we looted
+// store item name
+// write to csv
+// itemName, mobID, date
