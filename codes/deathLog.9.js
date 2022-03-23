@@ -1,7 +1,5 @@
-// Mongodb setup
-const { MongoClient } = require('mongodb');
-const url = 'mongodb+srv://Jesse1224:8characters@cluster0.oqzgc.mongodb.net/deathLog?retryWrites=true&w=majority'
-const client = new MongoClient(url);
+const filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/deaths.csv';
+const fs = require('fs')
 
 // Logs deaths into csv
 function deathLog() {
@@ -10,29 +8,23 @@ function deathLog() {
         let incDamage = data.damage; // Damage we will take
         let charHealth = character.hp; // How much hp we have left
         // If we are not going to die return
-        if (incDamage - charHealth > 0) return;
+        if (charHealth - incDamage > 0) return;
         // Else if we are dead
         let timeOfDeath = new Date();
         let charName = character.name;
         let killedBy = data.actor;
-        // Connect to database
-        client.connect();
-        // Save to database
-        createListing(client, {
-            character_name: charName,
-            killed_by: killedBy,
-            time_of_death: timeOfDeath
+        let deathData = [charName, killedBy, timeOfDeath];
+        // Write to file
+        fs.appendFile(filePath, deathData + "\n", err => {
+            if (err) {
+            console.error(err)
+            return;
+            }
         })
-        // Close mongo connection
-        client.close();
+        return;
     });
 }
 
-async function createListing(client, newListing) {
-    const result = await client.db("deathLog").collection("deaths").insertOne
-    (newListing);
-}
-
-setInterval(function () {
+setTimeout(function () {
     deathLog();
 }, 250);
