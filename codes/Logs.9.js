@@ -4,7 +4,7 @@ const fs = require('fs')
 function deathLog() {
     const filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/deaths.csv';
     // When character is hit
-    character.on("hit",function(data){
+    character.on("hit", function (data) {
         let incDamage = data.damage; // Damage we will take
         let charHealth = character.hp; // How much hp we have left
         // If we are not going to die return
@@ -17,8 +17,8 @@ function deathLog() {
         // Write to file
         fs.appendFile(filePath, deathData + "\n", err => {
             if (err) {
-            console.error(err)
-            return;
+                console.error(err)
+                return;
             }
         })
         return;
@@ -42,3 +42,19 @@ setTimeout(function () {
 // store item name
 // write to csv
 // itemName, mobID, date
+
+/*
+function dropLog() {
+    
+    character.on("loot", function(data) {
+        // Return if nothing dropped
+        if (data.items === null) return;
+        // Something did drop get it's name
+        console.log(data.items.name);
+    });
+}
+
+setTimeout(function () {
+    dropLog();
+}, 250);
+*/
