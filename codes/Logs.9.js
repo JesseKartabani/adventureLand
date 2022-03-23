@@ -36,7 +36,7 @@ setTimeout(function () {
 // Sudo code
 
 // character.on loot
-// if name == rareItemWhiteList
+// if name != commonItemWhiteList
 // store date
 // store id of mob we looted
 // store item name
@@ -48,9 +48,11 @@ function dropLog() {
     
     character.on("loot", function(data) {
         // Return if nothing dropped
-        if (data.items === null) return;
-        // Something did drop get it's name
-        console.log(data.items.name);
+        if (data.items != null) {
+            // Something did drop get it's name
+            console.log(data.items.name);
+        }
+        return;
     });
 }
 
