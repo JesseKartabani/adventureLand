@@ -34,7 +34,7 @@ load_code("upgradeCompound"); // Upgrading/compounding, refer to upgradeCompound
 load_code("ponty"); // Buys from Ponty, refer to ponty.js
 //load_code("autoEquip"); // Equips gear from bank if it's an upgrade, refer to autoEquip.js
 load_code("autoBank"); // Merchant banks fully upgraded and compounded items every 40 mins, refer to autoBank.js
-load_code("deathLog"); // Logs deaths into deaths.csv
+load_code("Logs"); // Logs deaths and rare item drops
 
 // Run all code only once
 setTimeout(function () {

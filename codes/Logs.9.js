@@ -1,8 +1,8 @@
-const filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/deaths.csv';
 const fs = require('fs')
 
 // Logs deaths into csv
 function deathLog() {
+    const filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/deaths.csv';
     // When character is hit
     character.on("hit",function(data){
         let incDamage = data.damage; // Damage we will take
