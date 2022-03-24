@@ -93,9 +93,9 @@ function master_merchant() {
 // All the farmer characters will run this, but never a merchant
 function master_farmers() {
     if (farmer_names.includes(character.name)) {
-        send_items_to_merchant(); // Sends loot and gold to merchant when nearby
-        handle_farming(); // Attempts to complete monster hunt quests and farm tokens
-        request_merchant(); // Asks the merchant to deliver potions when low or when low inventory space
+        send_items_to_merchant(); // Send loot and gold to merchant when nearby
+        handle_farming(); // Attempt to complete monster hunt quests and farm tokens
+        request_merchant(); // Ask the merchant to deliver potions when low or when low inventory space
     }
 }
 
@@ -110,14 +110,14 @@ function distance_to_point(x1, y1, x2, y2) {
 function get_npc_by_id(name) {
     // Look through all the maps in the game
     for (i in parent.G.maps) {
-        let map = G.maps[i]; // This is a single map in the current loop
+        let map = G.maps[i]; // Single map in the current loop
         let ref = map.ref; // Single ref in the current loop
         // We now loop through all the npcs in this specific ref; remember we are looping all game maps
         // For each game map loop, this loop happens, so this is being checked a lot of times
         for (j in ref) {
-            let data = ref[j]; // This is all the data (+ location info) for this specific ref, in the ref loop
-            let id = data.id; // This is finally the unique npc id we are looking for
-            if (id == name) { // If the id is equal to the string we specified, 'name'... 
+            let data = ref[j]; // Data (+ location info) for this specific ref, in the ref loop
+            let id = data.id; // Unique npc id we are looking for
+            if (id == name) { // If the id is equal to the string we specified 
                 // We return the location of the npc we specified
                 return data;
             }
@@ -161,7 +161,7 @@ function use_potions() {
             parent.use_skill('mp');
         }
     } else {
-        // Focuses on health before mana, as long as there's just enough mana
+        // Focus on health before mana, as long as there's just enough mana
         if (character.hp <= character.max_hp - parent.G.items[potion_types[0]].gives[0][1]) {
             if (quantity(potion_types[0]) > 0) {
                 parent.use_skill('hp');
@@ -177,11 +177,11 @@ function use_potions() {
     }
 }
 
-// Merchant always keep 50 of each type of upgrade scroll
+// Merchant always keeps 50 of each type of upgrade scroll
 function buy_upgrade_scrolls() {
-    // If our character is a merchant and isnt moving
+    // If character is a merchant and isnt moving
     if (character.name != merchant_name && smart.moving) return;
-    // If we are too far away from vendor return
+    // If too far away from vendor return
     let npc = get_npc_by_id('scrolls');
     let distance = distance_to_point(npc.x, npc.y, character.real_x, character.real_y);
     if (distance > 400) return;
@@ -194,20 +194,20 @@ function buy_upgrade_scrolls() {
 
 // str, int
 function keep_certain_amount(item, amount) {
-    // If the quantity of the item is greater than the amount we return
+    // If the quantity of the item is greater than the amount return
     if (quantity(item) >= amount) return;
-    // else buy item
+    // Else buy item
     parent.buy_with_gold(item);
 }
 
 // Keep our merchants stand open if stopped and closed if we are moving
 function open_close_stand() {
     if (character.moving) {
-        // We close the stand with a socket emit if moving
-        parent.socket.emit("merchant", { close: 1 });
+        // Close the stand if moving
+        close_stand();
     } else {
-        // If not moving we open the stand, and have to use the 'locate_item(name)' function to locate the slot the stand is in
-        parent.socket.emit("merchant", { num: locate_item('stand0') });
+        // If not moving open the stand
+        open_stand();
     }
 }
 
@@ -601,7 +601,7 @@ function server_logic(server, new_region, server_number) {
         setTimeout(function () {
             change_server(new_region, server_number)
         }, hour)
-        // If we are not on main server change server each minute
+    // Else if we are not on main server change server each minute
     } else if (server == current_server) {
         setTimeout(function () {
             change_server(new_region, server_number)
