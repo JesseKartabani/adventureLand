@@ -301,14 +301,12 @@ function farm_normally() {
 
 // Gets, completes and hands in monster hunts
 function handle_monster_hunts() {
-    var npc = get_npc_by_id('monsterhunter'); // Refer to function for details
-    var npc_location = { x: npc.x, y: npc.y, map: npc.map };
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // Checks to see if we have a monster hunting quest and if we are on our main server
     if (character.s.monsterhunt == undefined && current_server == main_server) { // If we do not have a quest and we are on main server
         // Go get a quest from daisy
         if (!smart.moving) {
-            smart_move(npc_location, function () {
+            smart_move('monsterhunter', function () {
                 // Once we have arrived at daisy, we need to interact with her
                 setTimeout(function () {
                     // This acts like the game has clicked on her
