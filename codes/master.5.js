@@ -6,7 +6,8 @@
     * Phoneix farming
     * Ranger kiting for hard mobs
     * Merchant mining/fishing
-    * Death log 
+    * Skills need complete rework
+    * Reduce code calls when creating party
 */
 
 // Zoom game in by 1.25x
