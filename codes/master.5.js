@@ -134,7 +134,7 @@ function get_npc_by_id(name) {
 
 // Leaves merchant with one inventory space by sending last item in bags to the bank
 async function fix_full_inventory() {
-     // If inventory is not full return
+    // If inventory is not full return
     if (character.esize >= 1) return;
     // If we are moving return
     if (smart.moving) return;
