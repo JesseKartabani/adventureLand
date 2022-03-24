@@ -51,12 +51,6 @@ setInterval(function () {
     master_farmers(); // any farmer uses code
 }, 250);
 
-// Loot on the fastest interval too keep up with chest drops
-setInterval(function () {
-    loot();
-}, 150);
-
-
 // Activates each classes skills according to functions logic
 //warrior_skills();
 //priest_skills();
@@ -71,6 +65,7 @@ function master_global() {
         respawn();
     } else { // If character is alive
         use_potions();
+        loot();
         handle_party();
     }
 }
