@@ -345,7 +345,7 @@ function handle_monster_hunts() {
                 }
             } else if (!smart.moving) { // If we have killed enough to complete the quest and we aren't smart moving
                 // We can turn in the quest
-                smart_move(npc_location, function () {
+                smart_move('monsterhunter', function () {
                     // Once we arrive at daisy, we interact with her to turn in the quest
                     setTimeout(function () {
                         parent.socket.emit("monsterhunt");
