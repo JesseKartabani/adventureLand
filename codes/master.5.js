@@ -580,6 +580,7 @@ function visit_servers() {
         Stays on main_server for a hour then swaps to "EU II".
         Goes through each server for one minute until returning to main_server 
     */
+    // (currentServer, newServerRegion, newServerNumber)
     server_logic(main_server, "EU", "II");
     server_logic("EU II", "US", "I");
     server_logic("US I", "US", "II");
@@ -590,10 +591,8 @@ function visit_servers() {
 
 // str, str, str
 function server_logic(server, new_region, server_number) {
-    // One hour in milliseconds
-    var hour = 3600000;
-    // One minute in milliseconds
-    var minute = 60000;
+    var hour = 3600000; // One hour in milliseconds
+    var minute = 60000; // One minute in milliseconds
     // Server we are on
     var current_server = parent.server_region + ' ' + parent.server_identifier;
     // If we are on our main server main_server We change servers after an hour
