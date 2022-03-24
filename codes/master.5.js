@@ -99,7 +99,6 @@ function master_merchant() {
 // All the farmer characters will run this, but never a merchant
 function master_farmers() {
     if (farmer_names.includes(character.name)) {
-        accept_party_invite(merchant_name); // Will join the merchants party when the merchant sends an invite
         send_items_to_merchant(); // Sends loot and gold to merchant when nearby
         handle_farming(); // Attempts to complete monster hunt quests and farm tokens
         request_merchant(); // Asks the merchant to deliver potions when low or when low inventory space
