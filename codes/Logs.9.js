@@ -1,3 +1,8 @@
+// TODO BUG FIX: death log and drop log are writing duplicate entries,
+// I think this is because each character is doing their own entry each time
+// there's an item drop or someone dies
+
+
 const fs = require('fs')
 
 // Logs deaths into csv
@@ -24,38 +29,31 @@ function deathLog() {
     });
 }
 
-setTimeout(function () {
-    deathLog();
-}, 250);
+
 
 // TODO: Rare item logger
-// On loot check item name for rare drop
-// And on exchange check for rare item 
+// on exchange check for rare item 
 
-// Sudo code
-
-// character.on loot
-// if name != commonItemWhiteList
-// store date
-// store id of mob we looted
-// store item name
-// write to csv
-// itemName, mobID, date
-
-/*
 function dropLog() {
-    
+    let filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/drops.csv';
+
     character.on("loot", function(data) {
-        // Return if nothing dropped
-        if (data.items != null) {
-            // Something did drop get it's name
-            console.log(data.items.name);
-        }
-        return;
+        let loot = data.items;
+        // If theres no item when we loot return
+        if (loot == "" || loot == undefined) return;
+        // Else if there is an item get its name 
+        let lootName = loot[0]['name'];
+        // Then append drops.csv
+        fs.appendFile(filePath, lootName + "\n", err => {
+            if (err) {
+                console.error(err)
+                return;
+            }
+        })
     });
 }
 
 setTimeout(function () {
+    deathLog();
     dropLog();
 }, 250);
-*/
