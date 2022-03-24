@@ -133,20 +133,13 @@ function get_npc_by_id(name) {
 }
 
 // Leaves merchant with one inventory space by sending last item in bags to the bank
-function fix_full_inventory() {
-    // Iterates through inventory and counts filled slots
-    let filledSlots = 0;
-    for (let i in character.items) {
-        const item = character.items[i]
-        if (item != null) {
-            filledSlots++
-        }
-    }
-    // If inventory is full (42 filledSlots)
-    if (filledSlots != 42) return;
+async function fix_full_inventory() {
+     // If inventory is not full return
+    if (character.esize >= 1) return;
+    // If we are moving return
     if (smart.moving) return;
-    // Move to bank and store last item in inventory
-    smart_move("bank");
+    // Else move to bank and store last item in inventory
+    await smart_move("bank");
     bank_store(41);
 }
 
