@@ -475,16 +475,14 @@ function sell_items() {
 }
 
 // Tell our merchant where to idle when they aren't doing anything
-function merchant_handle_location_idle() {
-    var location = merchant_idle[1]; // Check the variable to see how we tell them where to "idle"
+async function merchant_handle_location_idle() {
+    let location = merchant_idle[1]; // Check the variable to see how we tell them where to "idle"
     if (character.map != location.map && !smart.moving) {
-        setTimeout(function () {
-            smart_move(location);
-        }, 3000);
+        await smart_move(location);
     } else {
-        var distance = distance_to_point(location.x, location.y, character.real_x, character.real_y);
+        let distance = distance_to_point(location.x, location.y, character.real_x, character.real_y);
         if (distance >= 10 && !smart.moving) {
-            smart_move(location);
+            await smart_move(location);
         }
     }
 }
