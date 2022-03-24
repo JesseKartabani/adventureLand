@@ -5,10 +5,9 @@ function deathLog() {
     const filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/deaths.csv';
     // When character is hit
     character.on("hit", function (data) {
-        let incDamage = data.damage; // Damage we will take
-        let charHealth = character.hp; // How much hp we have left
-        // If we are not going to die return
-        if (charHealth - incDamage > 0) return;
+        // If hit doesn't kill us return
+        let isDead = data.kill;
+        if (!isDead) return;
         // Else if we are dead
         let timeOfDeath = new Date();
         let charName = character.name;
