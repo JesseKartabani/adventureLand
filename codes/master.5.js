@@ -370,7 +370,7 @@ function handle_farming() {
 }
 
 // Custom attack function
-function attack_monsters(target) {
+async function attack_monsters(target) {
     // If a target has been defined
     if (target) {
         var distance = distance_to_point(target.real_x, target.real_y, character.real_x, character.real_y);
@@ -378,7 +378,7 @@ function attack_monsters(target) {
         if (distance <= character.range) {
             // If we are not in cooldown
             if (can_attack(target)) {
-                attack(target);
+                await attack(target);
             }
         } else if (!character.moving) {
             // If we are not within attack range and not moving
