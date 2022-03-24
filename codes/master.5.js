@@ -59,7 +59,7 @@ setInterval(function () {
 
 // Activates each classes skills according to functions logic
 //warrior_skills();
-//priest_skills(); // Refer to functions for details
+//priest_skills();
 //hunter_skills();
 
 // Each hour we will check every server for ponty items
@@ -70,15 +70,15 @@ function master_global() {
     if (character.rip) { // If character is dead, try to respawn
         respawn();
     } else { // If character is alive
-        use_potions(); // Refer to function for details
-        handle_party(); // Refer to function for details
+        use_potions();
+        handle_party();
     }
 }
 
 // Only run by your merchant character (in my case the one also running other characters in the same window)
 function master_merchant() {
     if (character.name == merchant_name) {
-        open_close_stand(); // This opens and closes our stand depending on if moving or not
+        open_close_stand(); // Opens and closes our stand depending on if moving or not
         if (merchant_idle[0]) { // Check our const for true or false value
             merchant_handle_location_idle(); // Control where merchant idles
         }
@@ -86,13 +86,13 @@ function master_merchant() {
         if (character.map == potion_seller.map) { // If we are on the same map as the potion seller
             var distance = distance_to_point(potion_seller.x, potion_seller.y, character.real_x, character.real_y);
             if (distance <= 300) { // If we are close enough to the potion seller
-                sell_items(); // Refer to function for details
-                buy_potions(); // Refer to function for details
+                sell_items();
+                buy_potions();
             }
         }
-        buy_upgrade_scrolls(); // Refer to function for details
-        fix_full_inventory(); // Refer to function for details
-        exchange_items(); // Refer to function for details
+        buy_upgrade_scrolls();
+        fix_full_inventory();
+        exchange_items();
     }
 }
 
@@ -120,7 +120,6 @@ function get_npc_by_id(name) {
         let ref = map.ref; // Single ref in the current loop
         // We now loop through all the npcs in this specific ref; remember we are looping all game maps
         // For each game map loop, this loop happens, so this is being checked a lot of times
-        // This can be more demanding code, when you nest loops within loops
         for (j in ref) {
             let data = ref[j]; // This is all the data (+ location info) for this specific ref, in the ref loop
             let id = data.id; // This is finally the unique npc id we are looking for
@@ -143,7 +142,7 @@ async function fix_full_inventory() {
     bank_store(41);
 }
 
-// Run only by the merchant, who delivers potions to the farmers
+// Buys potions until reaching desired stack amount
 function buy_potions() {
     var mp = potion_types[1];
     var hp = potion_types[0];
@@ -207,7 +206,7 @@ function keep_certain_amount(item, amount) {
     parent.buy_with_gold(item);
 }
 
-// Keep our merchant stand open if stopped and closed if we are moving
+// Keep our merchants stand open if stopped and closed if we are moving
 function open_close_stand() {
     if (character.moving) {
         // We close the stand with a socket emit if moving
@@ -225,7 +224,6 @@ function start_farmers() {
         let farmer = farmer_names[i]; // Define each farmer
         if (farmer) {
             // This will start a character based on where we are in the array loop
-            // you can add strings for character and code slot names
             parent.start_character_runner(farmer, code_name);
         }
     }
@@ -251,18 +249,19 @@ function send_items_to_merchant() {
                     }
                 }
             }
-            send_gold_to_merchant(); // Refer to function for details
+            send_gold_to_merchant();
         }
     }
 }
 
 // Farmers will send excess gold to the merchant
 function send_gold_to_merchant() {
-    var retain = retain_gold_amount(); // This function allows us to check how much gold I need to keep for potions
-    if (character.gold > retain) { // If we have a lot of gold...
+    var retain = retain_gold_amount(); // Gold we want farmers to retain
+    if (character.gold > retain) {
         var send_amt = character.gold - retain;
-        if (send_amt >= 1000) { // If we have at least 1,000 gold to send...
-            // We send it to the merchant
+         // If we have at least 1,000 gold to send
+        if (send_amt >= 1000) {
+            // Send gold to the merchant
             parent.socket.emit("send", { name: merchant_name, gold: send_amt });
         }
     }
@@ -281,7 +280,7 @@ function farm_normally() {
     var desired_monster = get_nearest_monster({ type: farm_monster[0], no_target: true });
     if (target) { // If we are targeting something...
         // Try and kill it!
-        attack_monsters(target); // Refer to function for details
+        attack_monsters(target);
     } else if (desired_monster) { // If we are not targeting anything and there is a monster we want to target and kill
         // We target the desired monster
         change_target(desired_monster);
@@ -325,7 +324,7 @@ function handle_monster_hunts() {
             if (amount > 0) {
                 var target = get_targeted_monster();
                 if (target) {
-                    attack_monsters(target); // Refer to function for details
+                    attack_monsters(target);
                 } else {
                     // Refer to the 'farm_normally()' custom function
                     var desired_monster = get_nearest_monster({ type: monster, no_target: true });
@@ -353,7 +352,7 @@ function handle_farming() {
     // Make sure we have quests at all times, and decide if we can complete them
     handle_monster_hunts();
     // Too hard to complete quest, farm normally
-    farm_normally(); // Refer to function for details
+    farm_normally();
 }
 
 // Custom attack function
