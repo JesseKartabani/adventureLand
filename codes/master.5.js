@@ -232,14 +232,6 @@ function start_farmers() {
     }
 }
 
-// The function the merchant uses to send party invites
-function create_party() {
-    // You add a string of the character name you want to invite
-    send_party_invite(farmer_names[0]);
-    send_party_invite(farmer_names[1]);
-    send_party_invite(farmer_names[2]);
-}
-
 // Farmers will send farmed items to the merchant
 function send_items_to_merchant() {
     var merchant = get_player(merchant_name);
