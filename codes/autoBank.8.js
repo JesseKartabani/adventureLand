@@ -4,7 +4,7 @@ const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
 // Item, level
 var bank_whitelist = {
     // Maxed upgrades
-	quiver: 7,
+    quiver: 7,
     firestaff: 7,
     firebow: 7,
     fireblade: 7,

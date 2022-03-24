@@ -79,7 +79,7 @@ function inventory_equip() {
             // If that item is an upgrade
             if (is_upgrade(item) == true) {
                 // Then we equip that item
-                equip(i); 
+                equip(i);
             }
         }
     }

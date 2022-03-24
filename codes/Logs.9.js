@@ -38,7 +38,7 @@ function dropLog() {
     let filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/drops.csv';
     // on "loot" is emitted to the entire party so we only want our merchant to access it
     if (character.ctype != 'merchant') return;
-    character.on("loot", function(data) {
+    character.on("loot", function (data) {
         let loot = data.items;
         // If theres no item when we loot return
         if (loot == "" || loot == undefined) return;
