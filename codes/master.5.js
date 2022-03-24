@@ -195,6 +195,10 @@ function use_potions() {
 function buy_upgrade_scrolls() {
     // If our character is a merchant and isnt moving
     if (character.name != merchant_name && smart.moving) return;
+    // If we are too far away from vendor return
+    let npc = get_npc_by_id('scrolls');
+    let distance = distance_to_point(npc.x, npc.y, character.real_x, character.real_y)
+    if (distance > 400) return;
     // Checks if we have 50 of each scroll before restocking back up to 50
     keep_certain_amount("scroll0", 50);
     keep_certain_amount("scroll1", 50);
