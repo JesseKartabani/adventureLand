@@ -1,6 +1,9 @@
-// TODO BUG FIX: death log and drop log are writing duplicate entries,
+// TODO BUG FIX: death log is writing duplicate entries,
 // I think this is because each character is doing their own entry each time
-// there's an item drop or someone dies
+// someone dies.
+
+// (if our char dies while they aren't near another of our chars there is only
+// one entry as intented)
 
 
 const fs = require('fs')
@@ -32,7 +35,9 @@ function deathLog() {
 
 
 // TODO: Rare item logger
-// on exchange check for rare item 
+// on exchange check for rare item
+// 1. one solution is too parse the game logs when we exchange
+// 2. or we can make our exchange function return a promise of the item we got
 
 function dropLog() {
     let filePath = 'C:/Users/jesse/AppData/Roaming/Adventure Land/autosync5755988142981120/adventureland/logs/drops.csv';
@@ -58,3 +63,7 @@ setTimeout(function () {
     deathLog();
     dropLog();
 }, 250);
+
+// TODO: Upgrade Log
+// Should log successful upgrades as well as failed upgrades, each with the
+// percentage chance of that upgrade wokring and date of upgrade
