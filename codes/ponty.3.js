@@ -2,7 +2,7 @@ function buyFromPonty(itemName, itemLevel) {
 	// Set up the handler
 	parent.socket.once("secondhands", function (data) {
 		for (let d of data) {
-			// If ponty has something in our items_wanted whitelist and its the right ilvl
+			// If ponty has something in our itemsWanted whitelist and its the right ilvl
 			if (itemName.includes(d.name) && (d.level == itemLevel || null == d.level)) {
 				// Buy item
 				parent.socket.emit("sbuy", { "rid": d.rid })
@@ -13,7 +13,7 @@ function buyFromPonty(itemName, itemLevel) {
 }
 
 // Only change this
-items_wanted = [
+itemsWanted = [
 	"gslime",
 	"crabclaw",
 	"beewings",
@@ -35,7 +35,7 @@ items_wanted = [
 	"dexbelt"
 ]
 
-// Buy items_wanted from ponty at level 0 every 20 seconds
+// Buy itemsWanted from ponty at level 0 every 20 seconds
 setInterval(function () {
-	buyFromPonty(items_wanted, 0);
+	buyFromPonty(itemsWanted, 0);
 }, 20000);

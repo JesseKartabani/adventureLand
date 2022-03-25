@@ -81,7 +81,7 @@ setInterval(function () {
 	if (smart.moving) return;
 	if (parent != null && parent.socket != null) {
 		upgrade();
-		compound_items();
+		compoundItems();
 	}
 
 }, 1000);
@@ -93,7 +93,7 @@ function upgrade() {
 		if (c) {
 			var level = upgradeWhitelist[c.name];
 			if (level && c.level < level) {
-				let grades = get_grade(c);
+				let grades = getGrade(c);
 				let scrollname;
 				if (c.level < grades[0])
 					scrollname = 'scroll0';
@@ -102,7 +102,7 @@ function upgrade() {
 				else
 					scrollname = 'scroll2';
 
-				let [scroll_slot, scroll] = find_item(i => i.name == scrollname);
+				let [scroll_slot, scroll] = findItem(i => i.name == scrollname);
 				if (!scroll) {
 					parent.buy(scrollname);
 					return;
@@ -121,7 +121,7 @@ function upgrade() {
 	}
 }
 
-function compound_items() {
+function compoundItems() {
 	let to_compound = character.items.reduce((collection, item, index) => {
 		if (item && combineWhitelist[item.name] != null && item.level < combineWhitelist[item.name]) {
 			let key = item.name + item.level;
@@ -134,7 +134,7 @@ function compound_items() {
 		let scroll_name = "cscroll" + c[1];
 
 		for (let i = 2; i + 2 < c.length; i += 3) {
-			let [scroll, _] = find_item(i => i.name == scroll_name);
+			let [scroll, _] = findItem(i => i.name == scroll_name);
 			if (scroll == -1) {
 				parent.buy(scroll_name);
 				return;
@@ -157,12 +157,12 @@ function compound_items() {
 	}
 }
 
-function get_grade(item) {
+function getGrade(item) {
 	return parent.G.items[item.name].grades;
 }
 
 // Returns the item slot and the item given the slot to start from and a filter.
-function find_item(filter) {
+function findItem(filter) {
 	for (let i = 0; i < character.items.length; i++) {
 		let item = character.items[i];
 
