@@ -376,12 +376,12 @@ function attackMonsters(target) {
 
 // Retains a set amount of gold for potions, never gives to the merchant
 function retainGoldAmount() {
-    let hp_gold = parent.G.items[potionTypes[0]].g; // Price of single health pot
-    let mp_gold = parent.G.items[potionTypes[1]].g; // Price of single mana pot
-    let hp_total = hp_gold * potionTypes[2]; // Total gold to purchase our stack amount
-    let mp_total = mp_gold * potionTypes[2]; // Total gold to purchase our stack amount
-    let keep_gold = hp_total + mp_total; // Costs of both a stack of health pots and a stack of mana pots
-    return keep_gold;
+    let hpGold = parent.G.items[potionTypes[0]].g; // Price of single health pot
+    let mpGold = parent.G.items[potionTypes[1]].g; // Price of single mana pot
+    let hpTotal = hpGold * potionTypes[2]; // Total gold to purchase our stack amount
+    let mpTotal = mpGold * potionTypes[2]; // Total gold to purchase our stack amount
+    let keepGold = hpTotal + mpTotal; // Costs of both a stack of health pots and a stack of mana pots
+    return keepGold;
 }
 
 // A farmer will 'ping' the merchant with some information, and the merchant will be coded to respond
@@ -408,10 +408,10 @@ function requestMerchant() {
 function on_cm(sender, data) {
     if (data.message == "bring_potions") { // Refer to 'requestMerchant()' function
         let potionSeller = getNpcById('fancypots');
-        let potionSeller_location = { x: potionSeller.x, y: potionSeller.y, map: potionSeller.map };
+        let potionSellerLocation = { x: potionSeller.x, y: potionSeller.y, map: potionSeller.map };
         // We need to top off our potions at the potion seller
         if (!smart.moving) {
-            smart_move(potionSeller_location, function () {
+            smart_move(potionSellerLocation, function () {
                 // Once we arrive at the potion seller
                 if (quantity(potionTypes[0]) < 4000) {
                     buy_with_gold(potionTypes[0], data.hpot); // Buy health pots for the farmer
