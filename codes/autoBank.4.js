@@ -2,7 +2,7 @@
 const bank_loaction = [true, { map: 'bank', x: 4, y: -370 }];
 
 // Item, level
-var bank_whitelist = {
+let bankWhitelist = {
     // Maxed upgrades
     quiver: 7,
     firestaff: 7,
@@ -68,7 +68,7 @@ var bank_whitelist = {
 
 };
 
-// Merchant auto bank items in our bank_whitelist
+// Merchant auto bank items in our bankWhitelist
 function auto_bank() {
     // If character is our merchant
     if (character.ctype == "merchant") {
@@ -77,12 +77,12 @@ function auto_bank() {
             let slot = character.items[i];
             // If the slot isnt empty we get the name and level of whats in it
             if (slot != null) {
-                let slot_level = slot.level;
-                let slot_name = slot.name;
+                let slotLevel = slot.level;
+                let slotName = slot.name;
                 // Loop through our bank whitelist
-                for (let j in bank_whitelist) {
+                for (let j in bankWhitelist) {
                     // If the level and name are equal to whats in our slot
-                    if (slot_level == bank_whitelist[j] && slot_name == j) {
+                    if (slotLevel == bankWhitelist[j] && slotName == j) {
                         // We move to the bank
                         smart_move(bank_loaction[1]);
                         // Once we are inside the bank
