@@ -67,3 +67,6 @@ setTimeout(function () {
 // TODO: Upgrade Log
 // Should log successful upgrades as well as failed upgrades, each with the
 // percentage chance of that upgrade wokring and date of upgrade
+
+// Get upgrade data as it happens
+// parent.socket.on('q_data', (data) => console.log(data));
