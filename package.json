@@ -1,0 +1,26 @@
+{
+  "name": "adventureland",
+  "version": "1.0.0",
+  "description": "Adventure land bot",
+  "main": "master.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesseKartabani/adventureland.git"
+  },
+  "keywords": [
+    "mmorpg"
+  ],
+  "author": "Jesse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JesseKartabani/adventureland/issues"
+  },
+  "homepage": "https://github.com/JesseKartabani/adventureland#readme",
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

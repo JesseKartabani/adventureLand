@@ -1,174 +1,175 @@
-var upgradeMaxLevel = 7; //Max level it will stop upgrading items at if enabled
-var upgradeWhitelist =
+const upgradeMaxLevel = 7; // Max level it will stop upgrading items at if enabled
+const upgradeWhitelist =
 {
-	// ItemName, Max Level
-	pickaxe: 5,
-	rod: 5,
-	pyjamas: upgradeMaxLevel,
-	bunnyears: upgradeMaxLevel,
-	carrotsword: upgradeMaxLevel,
-	bow: 9,
-	quiver: 7,
-	firestaff: 7,
-	firebow: 7,
-	fireblade: 7,
-	sshield: 7,
-	shield: 7,
-	gloves: 7,
-	coat: 7,
-	helmet: 7,
-	pants: 7,
-	shoes: 7,
-	gloves1: 7,
-	coat1: 7,
-	helmet1: 7,
-	pants1: 7,
-	shoes1: 7,
-	harbringer: 5,
-	oozingterror: 5,
-	bataxe: 7,
-	spear: 7,
-	xmaspants: 7,
-	xmassweater: 7,
-	xmashat: 7,
-	xmasshoes: 7,
-	mittens: 7,
-	ornamentstaff: 7,
-	candycanesword: 7,
-	warmscarf: 7,
-	t2bow: 7,
-	pmace: 7,
-	basher: 7,
-	harmor: 5,
-	hgloves: 5,
-	wingedboots: 7,
-	wcap: 8,
-	wshoes: 8,
-	wgloves: 8,
-	wattire: 8,
-	wbreeches: 8,
-	xmace: 7,
-	cclaw: 7,
-	ololipop: 7
+  // ItemName, Max Level
+  pickaxe: 5,
+  rod: 5,
+  pyjamas: upgradeMaxLevel,
+  bunnyears: upgradeMaxLevel,
+  carrotsword: upgradeMaxLevel,
+  bow: 9,
+  quiver: 7,
+  firestaff: 7,
+  firebow: 7,
+  fireblade: 7,
+  sshield: 7,
+  shield: 7,
+  gloves: 7,
+  coat: 7,
+  helmet: 7,
+  pants: 7,
+  shoes: 7,
+  gloves1: 7,
+  coat1: 7,
+  helmet1: 7,
+  pants1: 7,
+  shoes1: 7,
+  harbringer: 5,
+  oozingterror: 5,
+  bataxe: 7,
+  spear: 7,
+  xmaspants: 7,
+  xmassweater: 7,
+  xmashat: 7,
+  xmasshoes: 7,
+  mittens: 7,
+  ornamentstaff: 7,
+  candycanesword: 7,
+  warmscarf: 7,
+  t2bow: 7,
+  pmace: 7,
+  basher: 7,
+  harmor: 5,
+  hgloves: 5,
+  wingedboots: 7,
+  wcap: 8,
+  wshoes: 8,
+  wgloves: 8,
+  wattire: 8,
+  wbreeches: 8,
+  xmace: 7,
+  cclaw: 7,
+  ololipop: 7,
 };
 
-var combineWhitelist =
+const combineWhitelist =
 {
-	// ItemName, Max Level
-	wbook0: 3,
-	lostearring: 2,
-	strearring: 3,
-	intearring: 3,
-	dexearring: 3,
-	hpbelt: 3,
-	ringsj: 3,
-	strring: 3,
-	intring: 3,
-	dexring: 3,
-	vitring: 3,
-	dexamulet: 3,
-	intamulet: 3,
-	stramulet: 3,
-	vitearring: 3,
-	dexbelt: 3,
-	intbelt: 3,
-	strbelt: 3
-}
+  // ItemName, Max Level
+  wbook0: 3,
+  lostearring: 2,
+  strearring: 3,
+  intearring: 3,
+  dexearring: 3,
+  hpbelt: 3,
+  ringsj: 3,
+  strring: 3,
+  intring: 3,
+  dexring: 3,
+  vitring: 3,
+  dexamulet: 3,
+  intamulet: 3,
+  stramulet: 3,
+  vitearring: 3,
+  dexbelt: 3,
+  intbelt: 3,
+  strbelt: 3,
+};
 
 
-setInterval(function () {
-	if (character.ctype != "merchant") return;
-	if (smart.moving) return;
-	if (parent != null && parent.socket != null) {
-		upgrade();
-		compoundItems();
-	}
-
+setInterval(function() {
+  if (character.ctype != 'merchant') return;
+  if (smart.moving) return;
+  if (parent != null && parent.socket != null) {
+    upgrade();
+    compoundItems();
+  }
 }, 1000);
 
 function upgrade() {
-	for (let i = 0; i < character.items.length; i++) {
-		let c = character.items[i];
+  for (let i = 0; i < character.items.length; i++) {
+    const c = character.items[i];
 
-		if (c) {
-			var level = upgradeWhitelist[c.name];
-			if (level && c.level < level) {
-				let grades = getGrade(c);
-				let scrollname;
-				if (c.level < grades[0])
-					scrollname = 'scroll0';
-				else if (c.level < grades[1])
-					scrollname = 'scroll1';
-				else
-					scrollname = 'scroll2';
+    if (c) {
+      const level = upgradeWhitelist[c.name];
+      if (level && c.level < level) {
+        const grades = getGrade(c);
+        let scrollname;
+        if (c.level < grades[0]) {
+          scrollname = 'scroll0';
+        } else if (c.level < grades[1]) {
+          scrollname = 'scroll1';
+        } else {
+          scrollname = 'scroll2';
+        }
 
-				let [scroll_slot, scroll] = findItem(i => i.name == scrollname);
-				if (!scroll) {
-					parent.buy(scrollname);
-					return;
-				}
-				if (character.q.upgrade == undefined) {
-					parent.socket.emit('upgrade', {
-						item_num: i,
-						scroll_num: scroll_slot,
-						offering_num: null,
-						clevel: c.level
-					});
-					return;
-				}
-			}
-		}
-	}
+        const [scroll_slot, scroll] = findItem((i) => i.name == scrollname);
+        if (!scroll) {
+          parent.buy(scrollname);
+          return;
+        }
+        if (character.q.upgrade == undefined) {
+          parent.socket.emit('upgrade', {
+            item_num: i,
+            scroll_num: scroll_slot,
+            offering_num: null,
+            clevel: c.level,
+          });
+          return;
+        }
+      }
+    }
+  }
 }
 
 function compoundItems() {
-	let to_compound = character.items.reduce((collection, item, index) => {
-		if (item && combineWhitelist[item.name] != null && item.level < combineWhitelist[item.name]) {
-			let key = item.name + item.level;
+  const to_compound = character.items.reduce((collection, item, index) => {
+    if (item && combineWhitelist[item.name] != null && item.level < combineWhitelist[item.name]) {
+      const key = item.name + item.level;
 			!collection.has(key) ? collection.set(key, [item.level, item_grade(item), index]) : collection.get(key).push(index);
-		}
-		return collection;
-	}, new Map());
+    }
+    return collection;
+  }, new Map());
 
-	for (var c of to_compound.values()) {
-		let scroll_name = "cscroll" + c[1];
+  for (const c of to_compound.values()) {
+    const scroll_name = 'cscroll' + c[1];
 
-		for (let i = 2; i + 2 < c.length; i += 3) {
-			let [scroll, _] = findItem(i => i.name == scroll_name);
-			if (scroll == -1) {
-				parent.buy(scroll_name);
-				return;
-			}
+    for (let i = 2; i + 2 < c.length; i += 3) {
+      const [scroll, _] = findItem((i) => i.name == scroll_name);
+      if (scroll == -1) {
+        parent.buy(scroll_name);
+        return;
+      }
 
-			game_log(scroll_name);
-			game_log(c[i]);
-			game_log(c[i + 1]);
-			game_log(c[i + 2]);
-			if (character.q.compound == undefined) {
-				parent.socket.emit('compound', {
-					items: [c[i], c[i + 1], c[i + 2]],
-					scroll_num: scroll,
-					offering_num: null,
-					clevel: c[0]
-				});
-				return;
-			}
-		}
-	}
+      game_log(scroll_name);
+      game_log(c[i]);
+      game_log(c[i + 1]);
+      game_log(c[i + 2]);
+      if (character.q.compound == undefined) {
+        parent.socket.emit('compound', {
+          items: [c[i], c[i + 1], c[i + 2]],
+          scroll_num: scroll,
+          offering_num: null,
+          clevel: c[0],
+        });
+        return;
+      }
+    }
+  }
 }
 
 function getGrade(item) {
-	return parent.G.items[item.name].grades;
+  return parent.G.items[item.name].grades;
 }
 
 // Returns the item slot and the item given the slot to start from and a filter.
 function findItem(filter) {
-	for (let i = 0; i < character.items.length; i++) {
-		let item = character.items[i];
+  for (let i = 0; i < character.items.length; i++) {
+    const item = character.items[i];
 
-		if (item && filter(item))
-			return [i, character.items[i]];
-	}
+    if (item && filter(item)) {
+      return [i, character.items[i]];
+    }
+  }
 
-	return [-1, null];
+  return [-1, null];
 }
