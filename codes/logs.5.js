@@ -49,7 +49,7 @@ function dropLog() {
     // Else if there is an item get its name
     const lootName = loot[0]['name'];
     // Then append drops.csv
-    fs.appendFile(filePath, lootName + '\n', (err) => {
+    fs.appendFile(filePath, lootName + "," + '\n', (err) => {
       if (err) {
         console.error(err);
         return;
