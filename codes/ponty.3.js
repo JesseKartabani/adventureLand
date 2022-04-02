@@ -33,6 +33,8 @@ itemsWanted = [
   'stramulet',
   'intamulet',
   'dexbelt',
+  'spores',
+  'cape'
 ];
 
 // Buy itemsWanted from ponty at level 0 every 20 seconds
